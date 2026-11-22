@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { SyllabusExplorer } from "@/components/syllabus/syllabus-explorer";
-import { catalogue, verifiedCount } from "@/lib/data/syllabus";
+import { buildableCount, catalogue, verifiedCount } from "@/lib/data/syllabus";
 
 export const metadata: Metadata = {
   title: "Syllabus index",
@@ -18,10 +18,10 @@ export default function SyllabusPage() {
       </h1>
       <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-muted">
         {catalogue.length} Cambridge subjects across IGCSE, O Level and AS &amp; A Level, each with
-        the syllabus code from the board&rsquo;s own subject list. {verifiedCount} carry a full,
-        verified chapter breakdown transcribed from the published syllabus. The rest are listed so
-        the catalogue is honest about what exists — a paper can only be built from a subject whose
-        chapters and question bank have both been checked.
+        the syllabus code from the board&rsquo;s own subject list. {buildableCount} have a question
+        bank attached and can build a paper today; {verifiedCount} of those also carry a chapter
+        list transcribed from the published syllabus. The rest are listed so the catalogue is
+        honest about what exists rather than silently omitting it.
       </p>
 
       <div className="mt-8 flex flex-wrap gap-3">

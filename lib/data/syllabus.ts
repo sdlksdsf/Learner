@@ -428,4 +428,7 @@ export const catalogueLevels: (SyllabusLevel | "All")[] = [
 
 export const verifiedCount = catalogue.filter((c) => (c.topics?.length ?? 0) > 0).length;
 
+/** Syllabuses that can actually build a paper: chapters transcribed *and* a bank. */
+export const buildableCount = catalogue.filter((c) => c.bank).length;
+
 export const getCatalogueEntry = (id: string) => catalogue.find((c) => c.id === id);

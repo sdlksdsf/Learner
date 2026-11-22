@@ -339,13 +339,27 @@ export function looksLikeKeywordSalad(
   pointText = ""
 ): boolean {
   const words = contentWords(answer);
-  if (words.length === 0) return false;
+  if (words.length < 4) return false;
+
   const kwWords = new Set(keywords.flatMap((k) => contentWords(k)).map(conceptOf));
-  if (kwWords.size === 0) return false;
-  const inside = words.filter((w) => kwWords.has(conceptOf(w))).length;
   const scheme = new Set(contentWords(pointText).map(conceptOf));
   const contributes = words.filter((w) => scheme.has(conceptOf(w))).length;
   if (contributes > 0) return false;
-  const connecting = /\b(because|so|therefore|which|when|as|since|means|equal|gives|makes|causes|due|allows|results)\b/i.test(answer);
-  return inside / words.length > 0.6 && !connecting && words.length < 40;
+
+  const inside = words.filter((w) => kwWords.has(conceptOf(w))).length;
+  if (inside / words.length <= 0.6) return false;
+
+  // A list of terms is only an answer when something carries it: a verb of
+  // reasoning, a figure of speech, or a formula the scheme actually wants.
+  // "twice double half" has none of those; "because the current doubles" does.
+  const connecting =
+    /\b(because|so|therefore|which|when|as|since|means|equal|gives|makes|causes|due|allows|results|increases|decreases|stays|becomes)\b/i.test(
+      answer
+    );
+  if (connecting) return false;
+
+  const hasEquation = /[=×÷²³⁻]|\d\s*[/+]\s*\d/.test(answer);
+  if (hasEquation) return false;
+
+  return true;
 }
