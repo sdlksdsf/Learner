@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArchiveDetail } from "@/components/library/archive-detail";
 import { archiveEntries, getArchiveEntry } from "@/lib/data/archive";
-import { buildArchivePaper } from "@/lib/engine/generate";
+import { buildArchivePaper, canBuildArchivePaper } from "@/lib/engine/generate";
+import { SyllabusEntry } from "@/components/library/syllabus-entry";
 import { getSubject } from "@/lib/data/subjects";
 
 export function generateStaticParams() {
@@ -18,9 +19,10 @@ export async function generateMetadata({
   const entry = getArchiveEntry(slug);
   if (!entry) return { title: "Paper not found" };
   const subject = getSubject(entry.subjectId);
+  const name = subject?.name ?? entry.title.split(" — ")[0];
   return {
-    title: `${subject?.name ?? "Paper"} ${entry.paperCode} — ${entry.session} ${entry.year}`,
-    description: `${subject?.name ?? ""} ${entry.level} past-paper reconstruction with mark scheme. ${entry.marks} marks, ${entry.minutes} minutes.`,
+    title: `${name} ${entry.paperCode} — ${entry.session} ${entry.year}`,
+    description: `${name} ${entry.level} ${entry.paperCode} paper, ${entry.session} ${entry.year}. ${entry.marks} marks, ${entry.minutes} minutes, with chapters and the board's mark-scheme link.`,
   };
 }
 
@@ -32,6 +34,15 @@ export default async function ArchivePage({
   const { slug } = await params;
   const entry = getArchiveEntry(slug);
   if (!entry) notFound();
+
+  if (!canBuildArchivePaper(entry)) {
+    return (
+      <div className="container-x py-8 lg:py-12">
+        <SyllabusEntry entry={entry} />
+      </div>
+    );
+  }
+
   const paper = buildArchivePaper(entry);
 
   return (

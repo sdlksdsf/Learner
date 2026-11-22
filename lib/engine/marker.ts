@@ -188,6 +188,30 @@ const includesPhrase = (haystack: string, needle: string): boolean => {
   return pattern.test(haystack);
 };
 
+/**
+ * Inside a bracket, a sign is part of the term. "(x + 4)" and "(x − 4)" factor
+ * different quadratics, so the sign must be compared, not stripped.
+ */
+const bracketsOf = (text: string): string[] =>
+  (text.match(/\([^()]*\)/g) ?? []).map((b) => normalize(b).replace(/\s+/g, ""));
+
+const signChanged = (answer: string, accepted: string): boolean => {
+  const a = bracketsOf(answer);
+  const b = bracketsOf(accepted);
+  // Only a bracket-for-bracket comparison can judge a sign. A worked solution
+  // legitimately contains other brackets on the way to the same factorisation.
+  if (a.length === 0 || b.length === 0 || a.length !== b.length) return false;
+  // Every bracket in the answer must appear in the accepted form with the same
+  // signs. "(x + 4)(x + 5)" fails "(x - 4)(x - 5)" on both brackets.
+  const pool = [...b];
+  for (const bracket of a) {
+    const idx = pool.indexOf(bracket);
+    if (idx === -1) return true;
+    pool.splice(idx, 1);
+  }
+  return false;
+};
+
 const tokenHit = (answerTokens: string[], token: string): boolean => {
   const bare = token.replace(/\^/g, "");
   if (answerTokens.includes(bare)) return true;
@@ -230,6 +254,7 @@ const pointResult = (
       point.accept.some(
         (a) =>
           includesPhrase(normalized, normalize(a)) &&
+          !signChanged(normalized, normalize(a)) &&
           // a bare number in an accept list must be the whole value written
           !(/^[+-]?\d+(\.\d+)?$/.test(normalize(a)) && !numbers.some((n) => matchesNumeric(n, Number(normalize(a)))))
       )
@@ -272,7 +297,10 @@ const pointResult = (
   if (awarded === 0) {
     const cov = coverage(normalized, point.text);
     const threshold = point.marks >= 2 ? 0.55 : 0.5;
+    // When the scheme point itself is written in brackets, the sign carries
+    // the meaning and coverage must not paper over it.
     if (
+      !signChanged(normalized, normalize(point.text)) &&
       cov.ratio >= threshold &&
       cov.hits.length >= (point.marks >= 2 ? 2 : 1) &&
       isPlausibleAttempt(normalized, part.prompt, point.text)
@@ -284,7 +312,7 @@ const pointResult = (
 
   // Examiner-style evidence match: the candidate must show the ideas the
   // scheme names, not merely restate the model answer.
-  if (awarded === 0) {
+  if (awarded === 0 && !signChanged(normalized, normalize(point.text))) {
     const answerTokens = tokenize(normalized);
     if (answerTokens.length > 0) {
       const meaningful = tokenize(point.text).filter(

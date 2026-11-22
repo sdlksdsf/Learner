@@ -10,90 +10,127 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import type { ArchiveEntry } from "@/lib/types";
-import { archiveEntries, archiveYears } from "@/lib/data/archive";
+import { archiveEntries, archiveYears, archiveSpan } from "@/lib/data/archive";
+import { catalogue } from "@/lib/data/syllabus";
 import { getSubject } from "@/lib/data/subjects";
+import { canBuildArchivePaper } from "@/lib/engine/generate";
 import { cn } from "@/lib/format";
 
-const levels = ["All levels", "IGCSE", "AS", "A Level"] as const;
-const subjects = ["maths", "physics", "chem", "bio", "cs", "econ"];
+const levels = ["All levels", "IGCSE", "O Level", "AS", "A Level"] as const;
 const visibleCount = 6;
 
+/** The catalogue row a paper belongs to, for its real name and group. */
+const entryInfo = (entry: ArchiveEntry) => {
+  const code = entry.specId.split("-")[0];
+  return catalogue.find((c) => c.code === code);
+};
+
 export function LibraryExplorer() {
-  const [subject, setSubject] = useState("all");
+  const [subjectCode, setSubjectCode] = useState("all");
   const [level, setLevel] = useState("All levels");
   const [year, setYear] = useState("all");
   const [search, setSearch] = useState("");
+  const [onlyBanked, setOnlyBanked] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<string[]>([]);
+
+  /** Subtests that can be sat on screen, offered first as a shortcut. */
+  const bankedSubjects = useMemo(() => {
+    const ids = Array.from(new Set(archiveEntries.filter(canBuildArchivePaper).map((e) => e.subjectId)));
+    return ids
+      .map((id) => getSubject(id))
+      .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  }, []);
 
   const filtered = useMemo(() => {
     const query = search.trim().toLowerCase();
     return archiveEntries
-      .filter((e) => subject === "all" || e.subjectId === subject)
+      .filter((e) =>
+        subjectCode === "all"
+          ? true
+          : subjectCode.startsWith("sub-")
+            ? e.subjectId === subjectCode.slice(4)
+            : e.specId.startsWith(`${subjectCode}-`)
+      )
       .filter((e) => level === "All levels" || e.level === level)
       .filter((e) => year === "all" || String(e.year) === year)
+      .filter((e) => !onlyBanked || canBuildArchivePaper(e))
       .filter((e) => {
         if (!query) return true;
-        const subj = getSubject(e.subjectId);
-        return [e.title, e.paperCode, subj?.name, ...e.topics]
+        const info = entryInfo(e);
+        return [e.title, e.paperCode, info?.name, e.session, ...e.topics]
           .join(" ")
           .toLowerCase()
           .includes(query);
       })
       .sort((a, b) => {
-        const sa = subjects.indexOf(a.subjectId);
-        const sb = subjects.indexOf(b.subjectId);
-        if (sa !== sb) return sa - sb;
+        const ba = canBuildArchivePaper(a) ? 0 : 1;
+        const bb = canBuildArchivePaper(b) ? 0 : 1;
+        if (ba !== bb) return ba - bb;
         if (b.year !== a.year) return b.year - a.year;
         return a.paperCode.localeCompare(b.paperCode);
       });
-  }, [subject, level, year, search]);
+  }, [subjectCode, level, year, search, onlyBanked]);
 
   const groups = useMemo(() => {
-    const order = subjects.filter((id) => filtered.some((e) => e.subjectId === id));
-    return order.map((id) => {
-      const subject = getSubject(id);
-      const entries = filtered.filter((e) => e.subjectId === id);
-      const levels = Array.from(new Set(entries.map((e) => e.level))).sort(
-        (a, b) =>
-          ["IGCSE", "AS", "A Level"].indexOf(a) - ["IGCSE", "AS", "A Level"].indexOf(b)
-      );
-      return {
-        key: id,
-        name: subject?.name ?? id,
-        accent: subject?.accent ?? "#17150F",
-        levels,
-        entries,
-      };
-    });
+    const byCode = new Map<string, ArchiveEntry[]>();
+    for (const entry of filtered) {
+      const code = entry.specId.split("-")[0];
+      const list = byCode.get(code) ?? [];
+      list.push(entry);
+      byCode.set(code, list);
+    }
+    return [...byCode.entries()]
+      .map(([code, entries]) => {
+        const info = catalogue.find((c) => c.code === code);
+        return {
+          key: code,
+          code,
+          name: info?.name ?? entries[0].title,
+          group: info?.group ?? "Other",
+          banked: canBuildArchivePaper(entries[0]),
+          levels: Array.from(new Set(entries.map((e) => e.level))),
+          entries,
+        };
+      })
+      .sort((a, b) => {
+        if (a.banked !== b.banked) return a.banked ? -1 : 1;
+        return a.name.localeCompare(b.name);
+      })
+      .slice(0, 60);
   }, [filtered]);
 
-  const activeCount = filtered.length;
+  const reset = () => {
+    setSubjectCode("all");
+    setLevel("All levels");
+    setYear("all");
+    setSearch("");
+    setOnlyBanked(false);
+  };
 
   return (
     <div>
       <div className="flex flex-col gap-4 border-y border-line py-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-wrap items-center gap-2">
           <button
-            onClick={() => setSubject("all")}
+            onClick={() => setSubjectCode("all")}
             className={cn(
               "border px-3 py-1.5 text-[11px] font-medium transition-colors duration-150",
-              subject === "all"
+              subjectCode === "all"
                 ? "border-ink bg-ink text-paper-2"
                 : "border-line text-muted hover:border-line-strong hover:text-ink"
             )}
           >
             All subjects
           </button>
-          {subjects.map((id) => {
-            const s = getSubject(id);
-            if (!s) return null;
+          {bankedSubjects.map((s) => {
+            const code = `sub-${s.id}`;
             return (
               <button
-                key={id}
-                onClick={() => setSubject(id)}
+                key={s.id}
+                onClick={() => setSubjectCode(code)}
                 className={cn(
                   "border px-3 py-1.5 text-[11px] font-medium transition-colors duration-150",
-                  subject === id
+                  subjectCode === code
                     ? "border-ink bg-ink text-paper-2"
                     : "border-line text-muted hover:border-line-strong hover:text-ink"
                 )}
@@ -110,14 +147,14 @@ export function LibraryExplorer() {
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search code, topic…"
+              placeholder="Search code, subject, topic…"
               className="h-8 w-44 border border-line bg-paper-2 pl-7 pr-2 text-[11px] outline-none placeholder:text-muted/70 focus:border-ink sm:w-56"
               aria-label="Search papers"
             />
           </div>
           <select
             value={level}
-            onChange={(e) => setLevel(e.target.value as (typeof levels)[number])}
+            onChange={(e) => setLevel(e.target.value)}
             className="h-8 border border-line bg-paper-2 px-2 text-[11px] outline-none focus:border-ink"
             aria-label="Filter by level"
           >
@@ -140,8 +177,20 @@ export function LibraryExplorer() {
               </option>
             ))}
           </select>
+          <button
+            onClick={() => setOnlyBanked((v) => !v)}
+            className={cn(
+              "h-8 border px-2.5 text-[10.5px] transition-colors duration-150",
+              onlyBanked
+                ? "border-ink bg-ink text-paper-2"
+                : "border-line text-muted hover:border-line-strong hover:text-ink"
+            )}
+            title="Only papers you can sit on screen"
+          >
+            Sat on screen
+          </button>
           <span className="mono order-first flex items-center gap-1.5 text-[9px] uppercase tracking-[0.12em] text-muted sm:order-none">
-            <SlidersHorizontal size={11} /> {activeCount} papers
+            <SlidersHorizontal size={11} /> {filtered.length.toLocaleString()} papers
           </span>
         </div>
       </div>
@@ -152,15 +201,7 @@ export function LibraryExplorer() {
           <p className="mt-2 text-[12px] text-muted">
             Try a different subject, level or year.
           </p>
-          <button
-            onClick={() => {
-              setSubject("all");
-              setLevel("All levels");
-              setYear("all");
-              setSearch("");
-            }}
-            className="btn btn-ghost btn-sm mt-6"
-          >
+          <button onClick={reset} className="btn btn-ghost btn-sm mt-6">
             Clear filters
           </button>
         </div>
@@ -168,21 +209,20 @@ export function LibraryExplorer() {
         <div>
           {groups.map((group) => (
             <section key={group.key} className="border-b border-line">
-              <div className="flex items-baseline justify-between py-3">
-                <div className="flex items-baseline gap-2.5">
+              <div className="flex items-baseline justify-between gap-3 py-3">
+                <div className="flex min-w-0 items-baseline gap-2.5">
                   <span
-                    className="h-[7px] w-[7px]"
-                    style={{ background: group.accent }}
+                    className={cn("h-[7px] w-[7px] shrink-0", group.banked ? "bg-accent" : "bg-line-strong")}
                     aria-hidden
                   />
-                  <h2 className="font-display text-[19px] tracking-[-0.01em]">
+                  <h2 className="truncate font-display text-[19px] tracking-[-0.01em]">
                     {group.name}
                   </h2>
-                  <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
-                    {group.levels.join(" · ")}
+                  <span className="mono shrink-0 text-[9px] uppercase tracking-[0.1em] text-muted">
+                    {group.code} · {group.levels.join(" · ")}
                   </span>
                 </div>
-                <span className="mono text-[10px] text-faint">
+                <span className="mono shrink-0 text-[10px] text-faint">
                   {group.entries.length} paper{group.entries.length === 1 ? "" : "s"}
                 </span>
               </div>
@@ -191,7 +231,7 @@ export function LibraryExplorer() {
                   ? group.entries
                   : group.entries.slice(0, visibleCount)
                 ).map((entry) => (
-                  <ArchiveCard key={entry.slug} entry={entry} />
+                  <ArchiveCard key={entry.slug} entry={entry} name={group.name} />
                 ))}
               </div>
               {group.entries.length > visibleCount && (
@@ -209,8 +249,7 @@ export function LibraryExplorer() {
                     <>Show fewer <ChevronUp size={12} /></>
                   ) : (
                     <>
-                      Show {group.entries.length - visibleCount} more{" "}
-                      {group.name.toLowerCase()} papers
+                      Show {group.entries.length - visibleCount} more {group.code} papers
                       <ChevronDown
                         size={12}
                         className="transition-transform group-hover:translate-y-0.5"
@@ -221,52 +260,62 @@ export function LibraryExplorer() {
               )}
             </section>
           ))}
+          {new Set(filtered.map((e) => e.specId.split("-")[0])).size > 60 && (
+            <p className="py-4 text-center text-[11px] text-muted">
+              Showing the first 60 of{" "}
+              {new Set(filtered.map((e) => e.specId.split("-")[0])).size} syllabuses — search or
+              filter to narrow the list.
+            </p>
+          )}
         </div>
       )}
 
       <div className="mt-6 flex flex-col gap-2 border-t border-line pt-4 text-[10px] leading-relaxed text-muted sm:flex-row sm:justify-between">
         <p>
-          Archive papers are study reconstructions assembled from the syllabus
-          blueprint and series pattern. Official papers are linked from each
-          page.
+          Every syllabus Cambridge publishes is indexed with the sessions it ran.
+          Papers marked with a filled dot can be sat on screen; the rest carry the
+          chapter list and a link to the board&rsquo;s own paper and mark scheme.
         </p>
-        <p className="mono uppercase tracking-[0.12em]">CAIE · {archiveYears[archiveYears.length - 1]}–{archiveYears[0]}</p>
+        <p className="mono uppercase tracking-[0.12em]">
+          CAIE · {archiveSpan.min}–{archiveSpan.max}
+        </p>
       </div>
     </div>
   );
 }
 
-function ArchiveCard({ entry }: { entry: ArchiveEntry }) {
-  const subject = getSubject(entry.subjectId);
+function ArchiveCard({ entry, name }: { entry: ArchiveEntry; name: string }) {
+  const banked = canBuildArchivePaper(entry);
   return (
     <Link
       href={`/library/${entry.slug}`}
       className="group relative flex flex-col bg-paper-2 p-5 transition-colors duration-200 hover:bg-paper-3"
     >
       <div className="flex items-start justify-between gap-3">
-        <div>
+        <div className="min-w-0">
           <p className="mono text-[10px] uppercase tracking-[0.14em] text-faint">
-            {subject?.name} · {entry.level}
+            {name} · {entry.level}
           </p>
-          <p className="mono mt-1 text-[15px] tracking-wide text-ink">
-            {entry.paperCode}
-          </p>
+          <p className="mono mt-1 text-[15px] tracking-wide text-ink">{entry.paperCode}</p>
         </div>
-        <span className="mono text-[10px] text-faint">
-          {entry.year} {entry.session}
+        <span className="mono shrink-0 text-right text-[10px] leading-tight text-muted">
+          {entry.session}
+          <br />
+          <span className="text-ink">{entry.year}</span>
         </span>
       </div>
 
-      <p className="mt-5 font-display text-[20px] leading-tight tracking-[-0.015em]">
-        {entry.title}
-      </p>
-
-      <div className="mt-3 flex flex-wrap gap-1">
-        {entry.topics.slice(0, 3).map((topic) => (
-          <span key={topic} className="tag">
-            {topic}
-          </span>
-        ))}
+      <div className="mt-4 flex flex-wrap gap-1">
+        {entry.topics.length > 0 ? (
+          entry.topics.slice(0, 3).map((topic) => (
+            <span key={topic} className="tag">
+              {topic}
+            </span>
+          ))
+        ) : (
+          <span className="tag">{banked ? "All chapters" : "Chapter list on the paper"}</span>
+        )}
+        {!banked && <span className="tag border-dashed">Board link only</span>}
       </div>
 
       <div className="mt-auto flex items-end justify-between gap-3 pt-6">

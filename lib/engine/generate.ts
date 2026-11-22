@@ -239,9 +239,28 @@ export function generatePaper(
   };
 }
 
+/**
+ * Syllabus-only entries (every subject without a question bank) cannot produce
+ * a paper. Returning null keeps callers honest instead of fabricating
+ * questions that were never written.
+ */
+export function canBuildArchivePaper(entry: ArchiveEntry): boolean {
+  const subject = getSubject(entry.subjectId);
+  if (!subject || !(entry.subjectId in BANKED_SUBJECT_IDS)) return false;
+  // A banked subject at a level with no questions would yield an empty paper,
+  // which is worse than saying plainly that it is not available.
+  return questionsFor(subject.id, entry.level).length > 0;
+}
+
+const BANKED_SUBJECT_IDS: Record<string, true> = {
+  maths: true, physics: true, chem: true, bio: true, cs: true, econ: true, pakstudies: true, islamiyat: true,
+};
+
 export function buildArchivePaper(entry: ArchiveEntry): Paper {
   const subject = getSubject(entry.subjectId);
-  if (!subject) throw new Error("Unknown subject");
+  if (!subject || !(entry.subjectId in BANKED_SUBJECT_IDS)) {
+    throw new Error("This syllabus has no question bank yet");
+  }
   const topicIds = topicsForLevel(subject, entry.level)
     .filter((t) => entry.topics.includes(t.name))
     .map((t) => t.id);

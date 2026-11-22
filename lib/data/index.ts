@@ -9,6 +9,8 @@ import { bioIgcse } from "@/lib/data/questions/bio-igcse";
 import { bioAdvanced } from "@/lib/data/questions/bio-advanced";
 import { csQuestions } from "@/lib/data/questions/cs";
 import { econQuestions } from "@/lib/data/questions/econ";
+import { pakStudiesQuestions } from "@/lib/data/questions/pak-studies";
+import { islamiyatQuestions } from "@/lib/data/questions/islamiyat";
 import {
   withExtras,
   mathsIgcseExtras,
@@ -49,6 +51,8 @@ export const questionBank: Record<string, Question[]> = {
   ],
   cs: withExtras(csQuestions, csExtras),
   econ: withExtras(withExtras(econQuestions, econExtras), econExtras2),
+  pakstudies: pakStudiesQuestions,
+  islamiyat: islamiyatQuestions,
 };
 
 export const allQuestions: Question[] = Object.values(questionBank).flat();
