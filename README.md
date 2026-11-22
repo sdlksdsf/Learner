@@ -95,6 +95,44 @@ npm run typecheck
 
 No environment variables, no database, no API keys.
 
+## Deploy
+
+The repo deploys to Vercel with zero configuration — the root directory is the
+app, the framework preset is Next.js, and there is nothing to provision.
+
+```bash
+# from the repo root
+npx vercel --prod        # or import the repo at vercel.com/new
+```
+
+Production: **https://papertrail-ten-gilt.vercel.app**
+
+What each route needs in production, and why:
+
+| Route | Rendering | Note |
+| --- | --- | --- |
+| `/`, `/library`, `/method`, `/saved` | static | no server state |
+| `/library/[slug]` | SSG, 288 pages | prerendered at build |
+| `/create` | client | generates the paper in the browser |
+| `/practice/[id]`, `/print/[id]` | client | reads the paper from `localStorage` |
+
+Because papers live in `localStorage` keyed by paper id, a generated paper opens
+on the same device and browser that made it. Nothing sensitive is stored, and
+there is no account system to break.
+
+Optional: set `NEXT_PUBLIC_SITE_URL` (e.g. `https://papertrail.study`) in the
+Vercel project to point canonical URLs, `sitemap.xml` and Open Graph tags at a
+custom domain. Without it, the app derives the origin from Vercel's own
+environment variables, so previews and production are always correct on their
+own host.
+
+One thing to check after the first deploy: **Vercel Authentication**. Vercel
+switches it on automatically for a project whose owner is on a team plan with
+Deployment Protection. While it is on, every URL except the production alias
+answers with a Vercel login page. Turn it off under
+*Project → Settings → Deployment Protection → Vercel Authentication → Disabled*
+so students can open the site.
+
 ---
 
 ## Honest limits
