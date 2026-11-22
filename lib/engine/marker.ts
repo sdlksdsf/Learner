@@ -12,6 +12,7 @@ import { gradeFor } from "@/lib/engine/grade";
 import { clamp, pct } from "@/lib/format";
 import {
   coverage,
+  stem,
   isPlausibleAttempt,
   looksLikeKeywordSalad,
   namesFormulaQuantities,
@@ -91,15 +92,41 @@ const matchesKeywords = (
   let hits = 0;
   const matched: string[] = [];
   const tokens = new Set(normalized.split(/[^\p{L}\p{N}^*.+\/=°-]+/u).filter(Boolean));
+  // Words after inflection is stripped, so "memorised" answers "memorise".
+  // Prefix matching alone is not enough ("memoris" is a fragment), so keep the
+  // full stem too. Word-level stems still reject "powerhouse" for "power".
+  const stems = new Set([...tokens].map((t) => stem(t)));
+  for (const t of [...tokens]) for (const w of t.split(/[^\p{L}\p{N}]+/u)) if (w) stems.add(stem(w));
   for (const kw of keywords) {
     const alternatives = kw
       .split("|")
       .map((a) => normalize(a))
       .filter(Boolean);
     const hit = alternatives.some((a) => {
-      // short tokens are matched whole ("u" must not match inside "uracil")
       if (a.includes(" ")) return normalized.includes(a);
-      if (a.length <= 3 && /^[\p{L}\p{N}]+$/u.test(a)) return tokens.has(a);
+      // A lone word must be a word. Substring matching let "power" match
+      // "powerhouse", which credited an answer that said nothing of the sort.
+      if (/^[\p{L}\p{N}]+$/u.test(a)) {
+        const target = stem(a);
+        // A whole word must match a whole word, then their stems must agree.
+        // Substrings are refused: "power" must not answer "powerhouse".
+        if (tokens.has(a)) return true;
+        for (const t of tokens) {
+          for (const w of t.split(/[^\p{L}\p{N}]+/u)) {
+            if (!w) continue;
+            const ws = stem(w);
+            if (ws === target) return true;
+            // A scheme fragment ("memoris") may match its inflections, but only
+            // when what follows is a suffix and nothing else. "power" therefore
+            // cannot swallow "powerhouse", while "memoris" reaches "memorised".
+            if (target.length >= 4 && ws.startsWith(target)) {
+              const tail = ws.slice(target.length);
+              if (/^(e|d|ed|es|ing|s|y|ation|ise|ize|al|ally)$/.test(tail)) return true;
+            }
+          }
+        }
+        return false;
+      }
       return normalized.includes(a);
     });
     if (hit) {
@@ -314,11 +341,19 @@ const pointResult = (
   // scheme names, not merely restate the model answer.
   if (awarded === 0 && !signChanged(normalized, normalize(point.text))) {
     const answerTokens = tokenize(normalized);
+    // "powerhouse" must not answer a point about "power": a token that runs
+    // together with more letters is a different word, not the scheme's term.
+    const answerSet = new Set(answerTokens);
+    const isRealToken = (t: string) => {
+      if (answerSet.has(t)) return true;
+      if (t.length < 4) return false;
+      return normalized.split(/[^\p{L}\p{N}]+/u).includes(t); // matched via a split of a compound
+    };
     if (answerTokens.length > 0) {
       const meaningful = tokenize(point.text).filter(
         (t) => t.length > 1 || isNumericLike(t)
       );
-      const hits = meaningful.filter((t) => tokenHit(answerTokens, t));
+      const hits = meaningful.filter((t) => isRealToken(t) && tokenHit(answerTokens, t));
       const required =
         meaningful.length <= 2
           ? meaningful.length

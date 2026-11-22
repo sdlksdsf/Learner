@@ -564,7 +564,7 @@ export const bioAdvancedExtras: PartExtras = {
   ],
   "ba-ho-3": [
     p("ba-ho-3b", "(b)", "State the main target cells of insulin.", 1, "short", "Liver and muscle cells (and other body cells).", 1, [
-      { text: "States liver and/or muscle cells", marks: 1, keywords: ["liver", "muscle", "cells"] },
+      { text: "States liver and/or muscle cells", marks: 1, keywords: ["liver", "muscle"], hits: 1 },
     ]),
   ],
   "ba-ec-1": [
