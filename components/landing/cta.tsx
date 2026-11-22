@@ -23,7 +23,7 @@ export function ClosingCta() {
         />
 
         <div className="relative">
-          <p className="eyebrow !text-paper-3/50">Before the exam</p>
+          <p className="eyebrow !text-invert-ink/65">Before the exam</p>
           <h2 className="display mt-5 max-w-2xl text-[clamp(36px,5vw,64px)] text-paper-2">
             Your next paper is already in the pattern.
           </h2>
@@ -35,7 +35,7 @@ export function ClosingCta() {
               How it works
             </ButtonLink>
           </div>
-          <div className="mt-12 flex flex-wrap gap-x-8 gap-y-2 border-t border-white/10 pt-5 text-[10px] uppercase tracking-[0.14em] text-paper-3/45">
+          <div className="mt-12 flex flex-wrap gap-x-8 gap-y-2 border-t border-white/10 pt-5 text-[10px] uppercase tracking-[0.14em] text-invert-ink/60">
             <span>No account</span>
             <span>No card</span>
             <span>Papers saved on your device</span>

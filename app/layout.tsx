@@ -53,8 +53,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3efe4",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f2e7" },
+    { media: "(prefers-color-scheme: dark)", color: "#17150f" },
+  ],
+  colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -67,7 +70,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add("js");`,
+            __html: `(function(){try{document.documentElement.classList.add("js");var s=localStorage.getItem("papertrail:theme");var m=window.matchMedia("(prefers-color-scheme: dark)").matches;var t=s==="dark"||s==="light"?s:(m?"dark":"light");var r=document.documentElement;r.dataset.theme=t;r.style.colorScheme=t;}catch(e){}})();`,
           }}
         />
       </head>

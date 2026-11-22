@@ -9,21 +9,21 @@ function Card({ entry }: { entry: (typeof archiveEntries)[number] }) {
       className="group w-[228px] shrink-0 border border-white/10 bg-white/[0.035] p-4 transition-colors duration-300 hover:bg-white/[0.075]"
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="mono text-[10px] tracking-wide text-paper-3/70">
+        <span className="mono text-[10px] tracking-wide text-invert-ink/80">
           {entry.paperCode}
         </span>
-        <span className="mono text-[9px] text-paper-3/40">
+        <span className="mono text-[9px] text-invert-ink/60">
           {entry.year} · {entry.session}
         </span>
       </div>
-      <p className="mt-5 font-display text-[19px] leading-tight text-paper-2">
+      <p className="mt-5 font-display text-[19px] leading-tight text-invert-ink">
         {entry.title}
       </p>
-      <p className="mt-1.5 text-[10.5px] text-paper-3/50">
+      <p className="mt-1.5 text-[10.5px] text-invert-ink/65">
         {entry.level} · {entry.marks} marks · {entry.minutes} min
       </p>
       <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-3">
-        <span className="mono text-[9px] uppercase tracking-[0.1em] text-paper-3/40">
+        <span className="mono text-[9px] uppercase tracking-[0.1em] text-invert-ink/60">
           {entry.topics[0]}
         </span>
         <ArrowUpRight
@@ -39,14 +39,14 @@ export function ArchiveStrip() {
   const items = archiveEntries.slice(0, 10);
 
   return (
-    <section className="border-y border-line bg-ink text-paper-2">
+    <section className="border-y border-line bg-ink text-invert-ink">
       <div className="container-x flex flex-col gap-6 py-16 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="eyebrow !text-paper-3/50">The archive</p>
-          <h2 className="display mt-4 text-[clamp(34px,4vw,48px)] text-paper-2">
+          <p className="eyebrow !text-invert-ink/65">The archive</p>
+          <h2 className="display mt-4 text-[clamp(34px,4vw,48px)] text-invert-ink">
             Every series. Both papers.
           </h2>
-          <p className="mt-3 max-w-md text-[13px] leading-relaxed text-paper-3/55">
+          <p className="mt-3 max-w-md text-[13px] leading-relaxed text-invert-ink/65">
             Filter by subject, level and year. Open the reconstruction, print
             the pack, or sit it on screen.
           </p>
@@ -66,7 +66,7 @@ export function ArchiveStrip() {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-ink to-transparent" />
       </div>
 
-      <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-white/10 py-4 text-[10px] uppercase tracking-[0.14em] text-paper-3/40">
+      <div className="container-x flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-white/10 py-4 text-[10px] uppercase tracking-[0.14em] text-invert-ink/60">
         <span>Cambridge · CAIE</span>
         <span>{Math.min(...archiveEntries.map((e) => e.year))} — {Math.max(...archiveEntries.map((e) => e.year))}</span>
         <span>May/June & Oct/Nov</span>

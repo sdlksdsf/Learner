@@ -43,7 +43,7 @@ export function Features() {
             <Reveal key={feature.title} delay={i * 90} variant="scale">
               <div className="group h-full border border-line bg-paper-2/60 p-6 transition-all duration-300 hover:border-line-strong hover:bg-paper-2 sm:p-7">
                 <div className="flex items-center justify-between">
-                  <span className="mono text-[10px] text-line-strong">0{i + 1}</span>
+                  <span className="mono text-[10px] text-faint">0{i + 1}</span>
                   <Icon
                     size={20}
                     strokeWidth={1.5}

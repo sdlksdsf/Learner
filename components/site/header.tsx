@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bookmark, Menu, X } from "lucide-react";
 import { Logo } from "@/components/site/logo";
+import { ThemeToggle } from "@/components/site/theme-toggle";
 import { loadSaved } from "@/lib/storage";
 import { cn } from "@/lib/format";
 
@@ -54,7 +55,7 @@ export function SiteHeader() {
                   active ? "text-ink" : "text-muted hover:text-ink"
                 )}
               >
-                <span className="mono text-[9px] text-line-strong transition-colors group-hover:text-accent">
+                <span className="mono text-[9px] text-faint transition-colors group-hover:text-accent">
                   {link.index}
                 </span>
                 {link.label}
@@ -70,6 +71,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Link
             href="/saved"
             className="btn btn-ghost btn-sm hidden gap-1.5 sm:inline-flex"
@@ -106,13 +108,17 @@ export function SiteHeader() {
                 href={link.href}
                 className="flex items-baseline gap-3 border-b border-line/60 py-3.5 last:border-b-0"
               >
-                <span className="mono text-[10px] text-line-strong">{link.index}</span>
+                <span className="mono text-[10px] text-faint">{link.index}</span>
                 <span className="font-display text-2xl">{link.label}</span>
               </Link>
             ))}
             <Link href="/saved" className="mt-2 flex items-center gap-2 py-2 text-sm text-muted">
               <Bookmark size={14} /> Saved papers ({savedCount})
             </Link>
+            <div className="mt-3 flex items-center justify-between border-t border-line/60 pt-3">
+              <span className="field-label">Appearance</span>
+              <ThemeToggle />
+            </div>
           </nav>
         </div>
       )}

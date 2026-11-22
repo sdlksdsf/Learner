@@ -1,27 +1,135 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-paper: #f3efe4;
-  --color-paper-2: #faf7ef;
-  --color-paper-3: #ece7d9;
-  --color-ink: #17150f;
-  --color-ink-2: #2a2820;
-  --color-muted: #6e6759;
-  --color-line: #d8d1c1;
-  --color-line-strong: #b9b09c;
-  --color-accent: #b93a2b;
-  --color-accent-dark: #8f2a20;
-  --color-green: #1f6b4a;
-  --color-green-soft: #e7f0ea;
-  --color-amber: #9a6a1c;
-  --color-amber-soft: #f6edd9;
-  --color-blue: #2b4c7e;
-  --color-blue-soft: #e9eef6;
+  /* Surfaces resolve through the theme layer below, so a utility like
+     bg-paper follows the active theme instead of a frozen hex value. */
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-soft: var(--accent-soft);
+  --color-green: var(--green);
+  --color-green-soft: var(--green-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-blue: var(--blue);
+  --color-blue-soft: var(--blue-soft);
+  --color-field: var(--field);
+  --color-field-focus: var(--field-focus);
+  --color-invert: var(--invert);
+  --color-invert-2: var(--invert-2);
+  --color-invert-ink: var(--invert-ink);
+  --color-hover: var(--hover);
   --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", monospace;
-  --shadow-sheet: 0 1px 0 rgba(23, 21, 15, 0.04), 0 24px 60px -36px rgba(23, 21, 15, 0.4);
-  --shadow-soft: 0 10px 30px -20px rgba(23, 21, 15, 0.35);
+  --shadow-sheet: var(--shadow-sheet-value);
+  --shadow-soft: var(--shadow-soft-value);
+}
+
+/* ------------------------------- Themes ---------------------------------- */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  --paper: #f6f2e7;
+  --paper-2: #fdfaf3;
+  --paper-3: #ece7d8;
+
+  --ink: #14120d;
+  --ink-2: #26241c;
+  /* 7.2:1 on paper — body copy, no more grey-on-cream blending */
+  --muted: #55503f;
+  /* 4.9:1 — the floor for small caps and meta text */
+  --faint: #6b6555;
+
+  --line: #d3cab6;
+  --line-strong: #a89d86;
+
+  --accent: #a8321f;
+  --accent-dark: #7d2416;
+  --accent-soft: #f4e3dd;
+
+  --green: #17603f;
+  --green-soft: #e2eee7;
+  --amber: #7d5312;
+  --amber-soft: #f5ebd6;
+  --blue: #23456f;
+  --blue-soft: #e5ecf5;
+
+  --field: #ffffff;
+  --field-focus: #ffffff;
+  --hover: rgba(20, 18, 13, 0.055);
+
+  --invert: #14120d;
+  --invert-2: #201d16;
+  --invert-ink: #f6f2e7;
+
+  --shadow-sheet-value: 0 1px 0 rgba(23, 21, 15, 0.05), 0 24px 60px -36px rgba(23, 21, 15, 0.42);
+  --shadow-soft-value: 0 10px 30px -20px rgba(23, 21, 15, 0.35);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Warm charcoal, not neutral black: the same ink-on-paper logic inverted. */
+  --paper: #17150f;
+  --paper-2: #1f1d16;
+  --paper-3: #262319;
+
+  --ink: #f7f3e8;
+  --ink-2: #e6e0d1;
+  /* 8.1:1 on paper */
+  --muted: #b3ab97;
+  /* 6.6:1 — meta text stays legible */
+  --faint: #938b78;
+
+  --line: #35312680;
+  --line-strong: #57513f;
+
+  --accent: #e2634d;
+  --accent-dark: #f0806c;
+  --accent-soft: #3a211b;
+
+  --green: #5fbb92;
+  --green-soft: #1b3128;
+  --amber: #d8a755;
+  --amber-soft: #33291521;
+  --blue: #8eb0dc;
+  --blue-soft: #1c2634;
+
+  --field: #1b1913;
+  --field-focus: #232019;
+  --hover: rgba(247, 243, 232, 0.07);
+
+  --invert: #f6f2e7;
+  --invert-2: #ffffff;
+  --invert-ink: #14120d;
+
+  --shadow-sheet-value: 0 1px 0 rgba(0, 0, 0, 0.4), 0 24px 60px -36px rgba(0, 0, 0, 0.85);
+  --shadow-soft-value: 0 10px 30px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* The printed sheet is paper, whatever the screen theme is. */
+:root {
+  --sheet-paper: #ffffff;
+  --sheet-ink: #14120d;
+  --sheet-muted: #55503f;
+  --sheet-line: #d8d2c3;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    transition: none;
+  }
 }
 
 @layer base {
@@ -37,6 +145,7 @@
   body {
     background: var(--color-paper);
     color: var(--color-ink);
+    transition: background-color 220ms ease, color 220ms ease;
     font-family: var(--font-sans);
     font-feature-settings: "ss01" 1, "cv05" 1;
     -webkit-font-smoothing: antialiased;
@@ -177,7 +286,7 @@
   }
 
   .btn-primary:hover {
-    background: #000;
+    background: var(--color-ink-2);
   }
 
   .btn-accent {
@@ -196,17 +305,17 @@
   }
 
   .btn-ghost:hover {
-    background: rgba(23, 21, 15, 0.05);
+    background: var(--color-hover);
   }
 
   .btn-light {
-    background: var(--color-paper-2);
-    color: var(--color-ink);
+    background: var(--color-invert);
+    color: var(--color-invert-ink);
     border-color: rgba(255, 255, 255, 0.16);
   }
 
   .btn-light:hover {
-    background: #fff;
+    background: var(--color-invert-2);
   }
 
   .btn-sm {
@@ -249,8 +358,8 @@
     font-family: var(--font-mono);
     font-size: 10px;
     letter-spacing: 0.04em;
-    color: var(--color-muted);
-    background: rgba(255, 255, 255, 0.35);
+    color: var(--color-faint);
+    background: var(--color-field);
     white-space: nowrap;
   }
 
@@ -290,9 +399,10 @@
       to bottom,
       transparent 0,
       transparent 31px,
-      rgba(23, 21, 15, 0.14) 31px,
-      rgba(23, 21, 15, 0.14) 32px
+      var(--color-line-strong) 31px,
+      var(--color-line-strong) 32px
     );
+    opacity: 1;
     background-position: 0 7px;
     line-height: 32px;
   }
@@ -351,7 +461,7 @@
     width: 100%;
     height: 44px;
     border: 1px solid var(--color-line-strong);
-    background: rgba(255, 255, 255, 0.4);
+    background: var(--color-field);
     padding: 0 12px;
     font-size: 14px;
     color: var(--color-ink);
@@ -364,7 +474,7 @@
   .field-input:focus {
     outline: none;
     border-color: var(--color-ink);
-    background: #fff;
+    background: var(--color-field-focus);
   }
 
   .segmented {
@@ -372,7 +482,7 @@
     padding: 3px;
     gap: 2px;
     border: 1px solid var(--color-line);
-    background: rgba(255, 255, 255, 0.35);
+    background: var(--color-field);
     border-radius: 2px;
   }
 
@@ -605,4 +715,39 @@ html.js .reveal-scale.is-in {
     break-inside: avoid;
     page-break-inside: avoid;
   }
+}
+
+
+/* --------------------------- Dark-mode details ---------------------------- */
+
+[data-theme="dark"] .grain {
+  opacity: 0.025;
+  mix-blend-mode: screen;
+}
+
+/* The printed sheet keeps its own colours even on a dark screen. */
+[data-theme="dark"] .sheet-print {
+  --color-paper: var(--sheet-paper);
+  --color-paper-2: var(--sheet-paper);
+  --color-paper-3: #f4f1e8;
+  --color-ink: var(--sheet-ink);
+  --color-ink-2: #26241c;
+  --color-muted: var(--sheet-muted);
+  --color-faint: #55503f;
+  --color-line: var(--sheet-line);
+  --color-line-strong: #a89d86;
+  --color-hover: rgba(20, 18, 13, 0.055);
+  background: var(--sheet-paper);
+  color: var(--sheet-ink);
+}
+
+[data-theme="dark"] ::selection {
+  background: var(--color-accent);
+  color: #14120d;
+}
+
+/* Utility: an inverted block (footer, dark CTA) that flips with the theme. */
+.invert-block {
+  background: var(--color-invert);
+  color: var(--color-invert-ink);
 }

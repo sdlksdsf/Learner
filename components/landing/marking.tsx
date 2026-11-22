@@ -98,7 +98,7 @@ export function Marking() {
                 delay={120 + i * 80}
                 className="grid grid-cols-[30px_1fr] gap-3 border-b border-line py-4 last:border-b-0"
               >
-                <span className="mono text-[10px] text-line-strong">0{i + 1}</span>
+                <span className="mono text-[10px] text-faint">0{i + 1}</span>
                 <div>
                   <p className="text-[13px] font-semibold">{title}</p>
                   <p className="mt-1 text-[12px] leading-relaxed text-muted">{body}</p>

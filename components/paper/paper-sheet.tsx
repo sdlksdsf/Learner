@@ -112,7 +112,7 @@ export function PaperSheet({
           <ul className="mt-2 space-y-1 text-[9.5px] leading-relaxed text-ink-2">
             {paper.instructions.map((instruction) => (
               <li key={instruction} className="flex gap-1.5">
-                <span className="text-line-strong">·</span>
+                <span className="text-faint">·</span>
                 <span>{instruction}</span>
               </li>
             ))}

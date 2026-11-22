@@ -12,13 +12,13 @@ export function SiteFooter() {
             paper to that pattern, and marks it against the scheme. Built for
             the week before the exam.
           </p>
-          <p className="mono mt-5 text-[10px] uppercase tracking-[0.16em] text-line-strong">
+          <p className="mono mt-5 text-[10px] uppercase tracking-[0.16em] text-faint">
             CAIE · Edexcel · AQA · OCR
           </p>
         </div>
 
         <div>
-          <p className="mono text-[10px] uppercase tracking-[0.16em] text-line-strong">
+          <p className="mono text-[10px] uppercase tracking-[0.16em] text-faint">
             Studio
           </p>
           <ul className="mt-4 space-y-2.5 text-[13px]">
@@ -29,7 +29,7 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <p className="mono text-[10px] uppercase tracking-[0.16em] text-line-strong">
+          <p className="mono text-[10px] uppercase tracking-[0.16em] text-faint">
             Reference
           </p>
           <ul className="mt-4 space-y-2.5 text-[13px]">

@@ -71,7 +71,7 @@ export default function MethodPage() {
         <div className="max-w-2xl">
           <Reveal>
             <div className="border border-line bg-paper-2 p-5">
-              <p className="mono text-[9px] uppercase tracking-[0.16em] text-line-strong">
+              <p className="mono text-[9px] uppercase tracking-[0.16em] text-faint">
                 The pipeline
               </p>
               <div className="mt-4 flex flex-wrap items-center gap-2 text-[10px]">
@@ -80,7 +80,7 @@ export default function MethodPage() {
                     <span className="border border-line px-2.5 py-1.5 font-medium">
                       {step}
                     </span>
-                    {i < 4 && <ArrowRight size={11} className="text-line-strong" />}
+                    {i < 4 && <ArrowRight size={11} className="text-faint" />}
                   </div>
                 ))}
               </div>
@@ -166,7 +166,7 @@ export default function MethodPage() {
           </div>
 
           <div className="mt-10 border border-line bg-paper-2 p-6">
-            <p className="mono text-[9px] uppercase tracking-[0.16em] text-line-strong">
+            <p className="mono text-[9px] uppercase tracking-[0.16em] text-faint">
               Request a subject
             </p>
             <p className="mt-2 max-w-lg text-[12.5px] leading-relaxed text-muted">
@@ -184,7 +184,7 @@ export default function MethodPage() {
 
         <aside className="hidden lg:block">
           <div className="sticky top-24">
-            <p className="mono text-[8.5px] uppercase tracking-[0.16em] text-line-strong">
+            <p className="mono text-[8.5px] uppercase tracking-[0.16em] text-faint">
               On this page
             </p>
             <nav className="mt-3 space-y-1.5 border-l border-line">

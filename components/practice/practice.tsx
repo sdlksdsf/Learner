@@ -507,7 +507,7 @@ export function Practice({ paperId }: { paperId: string }) {
           <aside className="hidden lg:block">
             <div className="sticky top-24">
               <div className="sheet p-4">
-                <p className="mono text-[8.5px] uppercase tracking-[0.16em] text-line-strong">
+                <p className="mono text-[8.5px] uppercase tracking-[0.16em] text-faint">
                   Questions
                 </p>
                 <div className="mt-3 grid grid-cols-5 gap-1.5">
@@ -995,7 +995,7 @@ function ResultsView({
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <div className="sheet p-5">
-            <p className="mono text-[9px] uppercase tracking-[0.16em] text-line-strong">
+            <p className="mono text-[9px] uppercase tracking-[0.16em] text-faint">
               Focus list
             </p>
             {result.focusTopics.length ? (
@@ -1031,7 +1031,7 @@ function ResultsView({
             )}
 
             <div className="mt-5 border-t border-line pt-4">
-              <p className="mono text-[8.5px] uppercase tracking-[0.12em] text-line-strong">
+              <p className="mono text-[8.5px] uppercase tracking-[0.12em] text-faint">
                 Marking note
               </p>
               <p className="mt-2 text-[9.5px] leading-relaxed text-muted">

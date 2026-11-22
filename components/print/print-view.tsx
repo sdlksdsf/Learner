@@ -214,7 +214,7 @@ function CoverPage({ paper }: { paper: Paper }) {
         <ul className="mt-2.5 space-y-1.5 text-[10px] leading-relaxed">
           {paper.instructions.map((instruction) => (
             <li key={instruction} className="flex gap-2">
-              <span className="text-line-strong">·</span>
+              <span className="text-faint">·</span>
               <span>{instruction}</span>
             </li>
           ))}
@@ -227,7 +227,7 @@ function CoverPage({ paper }: { paper: Paper }) {
             ? "Study reconstruction assembled from the syllabus blueprint and series pattern. Not the official paper. Official past papers remain the copyright of their exam board."
             : "Custom paper assembled by Papertrail from indexed past-paper patterns. Not an official exam paper."}
         </p>
-        <p className="mono shrink-0 text-[8px] uppercase tracking-[0.14em] text-line-strong">
+        <p className="mono shrink-0 text-[8px] uppercase tracking-[0.14em] text-faint">
           Page 1 of cover
         </p>
       </div>

@@ -44,7 +44,7 @@ export function HowItWorks() {
           </Reveal>
           <Reveal delay={180}>
             <div className="mt-8 flex items-center gap-3 border-t border-line pt-5">
-              <span className="mono text-[10px] uppercase tracking-[0.16em] text-line-strong">
+              <span className="mono text-[10px] uppercase tracking-[0.16em] text-faint">
                 Engine
               </span>
               <span className="h-1 w-1 rounded-full bg-accent" />

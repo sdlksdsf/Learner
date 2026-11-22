@@ -182,7 +182,7 @@ export function LibraryExplorer() {
                     {group.levels.join(" · ")}
                   </span>
                 </div>
-                <span className="mono text-[9px] text-muted">
+                <span className="mono text-[10px] text-faint">
                   {group.entries.length} paper{group.entries.length === 1 ? "" : "s"}
                 </span>
               </div>
@@ -241,18 +241,18 @@ function ArchiveCard({ entry }: { entry: ArchiveEntry }) {
   return (
     <Link
       href={`/library/${entry.slug}`}
-      className="group relative flex flex-col bg-paper-2 p-5 transition-colors duration-200 hover:bg-white"
+      className="group relative flex flex-col bg-paper-2 p-5 transition-colors duration-200 hover:bg-paper-3"
     >
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="mono text-[9px] uppercase tracking-[0.14em] text-line-strong">
+          <p className="mono text-[10px] uppercase tracking-[0.14em] text-faint">
             {subject?.name} · {entry.level}
           </p>
           <p className="mono mt-1 text-[15px] tracking-wide text-ink">
             {entry.paperCode}
           </p>
         </div>
-        <span className="mono text-[9px] text-muted">
+        <span className="mono text-[10px] text-faint">
           {entry.year} {entry.session}
         </span>
       </div>

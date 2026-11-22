@@ -25,7 +25,7 @@ function Specimen() {
 
       {/* back card */}
       <div className="sheet absolute -right-6 -top-8 hidden w-[236px] rotate-[3.2deg] p-4 xl:block">
-        <p className="mono text-[9px] uppercase tracking-[0.18em] text-line-strong">
+        <p className="mono text-[9px] uppercase tracking-[0.18em] text-faint">
           Mark scheme · 9709/42
         </p>
         <div className="mt-4 space-y-3">
@@ -61,7 +61,7 @@ function Specimen() {
       <div className="sheet anim-float relative z-10 p-6 sm:p-7">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="mono text-[9px] uppercase tracking-[0.18em] text-line-strong">
+            <p className="mono text-[9px] uppercase tracking-[0.18em] text-faint">
               Specimen<span className="hidden sm:inline"> · predicted pattern</span>
             </p>
             <p className="mt-1.5 font-display text-[21px] leading-none tracking-[-0.02em] sm:text-[22px]">
@@ -89,7 +89,7 @@ function Specimen() {
             <p className="mono text-[9px] uppercase tracking-[0.16em] text-muted">
               Topic frequency
             </p>
-            <p className="mono text-[9px] text-line-strong">10 series</p>
+            <p className="mono text-[9px] text-faint">10 series</p>
           </div>
           <div className="space-y-3">
             {bars.map((bar, i) => (
@@ -198,7 +198,7 @@ export function Hero() {
           </div>
 
           <div className="anim-rise mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line/70 pt-5" style={{ ["--delay" as string]: "320ms" }}>
-            <span className="mono text-[10px] uppercase tracking-[0.16em] text-line-strong">
+            <span className="mono text-[10px] uppercase tracking-[0.16em] text-faint">
               CAIE · Edexcel · AQA · OCR
             </span>
             <span className="ml-auto text-[11px] text-muted">

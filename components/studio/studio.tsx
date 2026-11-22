@@ -47,7 +47,7 @@ function Steps({ step }: { step: number }) {
           <span
             className={cn(
               "mono text-[10px] transition-colors",
-              i === step ? "text-accent" : i < step ? "text-ink" : "text-line-strong"
+              i === step ? "text-accent" : i < step ? "text-ink" : "text-faint"
             )}
           >
             0{i + 1}
@@ -456,7 +456,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
                           <span
                             className={cn(
                               "mono ml-1.5 text-[9px]",
-                              active ? "text-paper-3/60" : "text-line-strong"
+                              active ? "text-paper-3/60" : "text-faint"
                             )}
                           >
                             {marks}m
@@ -540,7 +540,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
                       style={{ accentColor: "#B93A2B" }}
                       aria-label="Target marks"
                     />
-                    <div className="mt-1 flex justify-between text-[9px] text-line-strong">
+                    <div className="mt-1 flex justify-between text-[9px] text-faint">
                       <span>10 marks</span>
                       <span>{maxMarks} marks available</span>
                     </div>
@@ -602,7 +602,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
           {/* summary */}
           <aside className="lg:sticky lg:top-24 lg:self-start">
             <div className="sheet p-5">
-              <p className="mono text-[9px] uppercase tracking-[0.16em] text-line-strong">
+              <p className="mono text-[9px] uppercase tracking-[0.16em] text-faint">
                 Paper spec
               </p>
               <dl className="mt-4 space-y-2.5">
@@ -633,7 +633,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
               </dl>
 
               <div className="mt-5 border-t border-line pt-4">
-                <p className="mono text-[9px] uppercase tracking-[0.14em] text-line-strong">
+                <p className="mono text-[9px] uppercase tracking-[0.14em] text-faint">
                   What happens next
                 </p>
                 <ol className="mt-3 space-y-2 text-[10.5px] leading-relaxed text-muted">
@@ -728,7 +728,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
                     delay={i * 45}
                     className="grid grid-cols-[24px_minmax(0,1fr)_76px_62px] items-center gap-3 border-b border-line py-3"
                   >
-                    <span className="mono text-[10px] text-line-strong">
+                    <span className="mono text-[10px] text-faint">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div>
@@ -812,7 +812,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
 
           <aside className="lg:sticky lg:top-24 lg:self-start">
             <div className="sheet p-5">
-              <p className="mono text-[9px] uppercase tracking-[0.16em] text-line-strong">
+              <p className="mono text-[9px] uppercase tracking-[0.16em] text-faint">
                 Blueprint
               </p>
               <h3 className="mt-2 font-display text-[23px] leading-tight">
@@ -919,7 +919,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <div className="sheet p-5">
-            <p className="mono text-[9px] uppercase tracking-[0.16em] text-line-strong">
+            <p className="mono text-[9px] uppercase tracking-[0.16em] text-faint">
               Why these questions
             </p>
             <div className="mt-4 space-y-3">

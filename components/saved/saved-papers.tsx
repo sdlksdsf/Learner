@@ -85,7 +85,7 @@ export function SavedPapers() {
         </div>
       ) : rows.length === 0 ? (
         <div className="mt-10 border border-dashed border-line-strong py-24 text-center">
-          <Bookmark size={26} className="mx-auto text-line-strong" strokeWidth={1.4} />
+          <Bookmark size={26} className="mx-auto text-faint" strokeWidth={1.4} />
           <p className="mt-5 font-display text-[28px]">Nothing saved yet.</p>
           <p className="mx-auto mt-2 max-w-sm text-[12px] leading-relaxed text-muted">
             Build a paper, sit it, and save the result. It will wait here for
@@ -109,7 +109,7 @@ export function SavedPapers() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="mono text-[8.5px] uppercase tracking-[0.14em] text-line-strong">
+                    <p className="mono text-[8.5px] uppercase tracking-[0.14em] text-faint">
                       {paper.subjectName} · {paper.level}
                     </p>
                     <h2 className="mt-2 font-display text-[20px] leading-tight tracking-[-0.015em]">
@@ -118,7 +118,7 @@ export function SavedPapers() {
                   </div>
                   <button
                     onClick={() => remove(paper.id)}
-                    className="text-line-strong transition-colors hover:text-accent"
+                    className="text-faint transition-colors hover:text-accent"
                     aria-label="Remove from saved"
                   >
                     <BookmarkX size={15} />
@@ -143,7 +143,7 @@ export function SavedPapers() {
                         {score}/{total}
                       </span>
                     ) : (
-                      <span className="mono text-[9px] uppercase tracking-[0.1em] text-line-strong">
+                      <span className="mono text-[9px] uppercase tracking-[0.1em] text-faint">
                         Not attempted
                       </span>
                     )}

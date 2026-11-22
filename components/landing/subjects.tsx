@@ -26,7 +26,7 @@ export function SubjectsSection() {
                 href={`/create?subject=${subject.id}`}
                 className="group grid gap-2 border-b border-line py-5 transition-colors duration-200 hover:bg-paper-2 sm:grid-cols-[38px_1.15fr_0.85fr_0.6fr_24px] sm:items-center sm:gap-5"
               >
-                <span className="mono text-[10px] text-line-strong">
+                <span className="mono text-[10px] text-faint">
                   0{i + 1}
                 </span>
                 <div className="flex items-center gap-3">
@@ -41,12 +41,12 @@ export function SubjectsSection() {
                 <p className="text-[11px] leading-relaxed text-muted">
                   {subject.levels.join(" · ")}
                 </p>
-                <p className="mono text-[10px] tracking-wide text-line-strong">
+                <p className="mono text-[10px] tracking-wide text-faint">
                   {subject.boards.join(" · ")}
                 </p>
                 <ArrowUpRight
                   size={16}
-                  className="hidden text-line-strong transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent sm:block"
+                  className="hidden text-faint transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent sm:block"
                 />
               </Link>
             </Reveal>

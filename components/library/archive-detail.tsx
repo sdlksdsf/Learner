@@ -65,9 +65,9 @@ export function ArchiveDetail({
     <div>
       <div className="anim-rise flex items-center gap-2 text-[10px] uppercase tracking-[0.12em] text-muted">
         <span className="mono">Archive</span>
-        <span className="text-line-strong">/</span>
+        <span className="text-faint">/</span>
         <span className="mono">{subject?.name}</span>
-        <span className="text-line-strong">/</span>
+        <span className="text-faint">/</span>
         <span className="mono text-ink">{entry.paperCode}</span>
       </div>
 
@@ -129,7 +129,7 @@ export function ArchiveDetail({
 
         <aside className="lg:sticky lg:top-24 lg:self-start">
           <div className="sheet p-5">
-            <p className="mono text-[9px] uppercase tracking-[0.16em] text-line-strong">
+            <p className="mono text-[9px] uppercase tracking-[0.16em] text-faint">
               Series
             </p>
             <dl className="mt-4 space-y-2.5">
@@ -152,7 +152,7 @@ export function ArchiveDetail({
             </dl>
 
             <div className="mt-5 border-t border-line pt-4">
-              <p className="mono text-[9px] uppercase tracking-[0.14em] text-line-strong">
+              <p className="mono text-[9px] uppercase tracking-[0.14em] text-faint">
                 Chapters
               </p>
               <ul className="mt-2.5 space-y-1.5">
@@ -178,7 +178,7 @@ export function ArchiveDetail({
 
           {siblings.length > 0 && (
             <div className="mt-4 border border-line bg-paper-2/70 p-4">
-              <p className="mono text-[8.5px] uppercase tracking-[0.14em] text-line-strong">
+              <p className="mono text-[8.5px] uppercase tracking-[0.14em] text-faint">
                 Same level
               </p>
               <ul className="mt-2 divide-y divide-line/70">
