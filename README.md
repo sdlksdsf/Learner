@@ -105,7 +105,10 @@ app, the framework preset is Next.js, and there is nothing to provision.
 npx vercel --prod        # or import the repo at vercel.com/new
 ```
 
-Production: **https://papertrail-ten-gilt.vercel.app**
+Production: **https://papertrail-ten-gilt.vercel.app** (open this one — it is the
+public alias). The project's own alias, `papertrail-platematch1.vercel.app`,
+resolves to the same deployment but currently answers with Vercel's login page
+because Deployment Protection is on for this account.
 
 What each route needs in production, and why:
 
@@ -126,12 +129,18 @@ custom domain. Without it, the app derives the origin from Vercel's own
 environment variables, so previews and production are always correct on their
 own host.
 
-One thing to check after the first deploy: **Vercel Authentication**. Vercel
-switches it on automatically for a project whose owner is on a team plan with
-Deployment Protection. While it is on, every URL except the production alias
-answers with a Vercel login page. Turn it off under
-*Project → Settings → Deployment Protection → Vercel Authentication → Disabled*
-so students can open the site.
+**Deployment Protection is the one setting that matters here.** While Vercel
+Authentication is on for this account, the `papertrail-*.vercel.app` project
+urls answer with a Vercel login page instead of the app. A custom domain is not
+subject to it, and the stable public alias
+`papertrail-ten-gilt.vercel.app` also serves without a login, which is why that
+is the URL above.
+
+To serve on the project url as well, turn protection off under
+*Project → Settings → Deployment Protection → Vercel Authentication → Disabled*.
+It can be read through the API (`ssoProtection` on the project) but not changed
+with the tools this repo's setup exposes, so it is a one-click step in the
+dashboard.
 
 ---
 
