@@ -11,7 +11,7 @@ export function SubjectsSection() {
           <div>
             <p className="eyebrow">Coverage</p>
             <h2 className="display mt-4 text-[clamp(34px,4vw,50px)]">
-              Six subjects, indexed deep.
+              {subjects.length} subjects, indexed deep.
             </h2>
           </div>
           <Link href="/library" className="btn btn-ghost btn-sm self-start sm:self-auto">

@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, ExternalLink } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { allQuestions } from "@/lib/data";
 import { archiveEntries } from "@/lib/data/archive";
+import { subjects } from "@/lib/data/subjects";
 
 export const metadata: Metadata = {
   title: "Method",
@@ -16,7 +17,7 @@ const sections = [
     n: "01",
     title: "The corpus",
     body: [
-      "The index covers six subjects across IGCSE, AS and A Level, with 24 recent series and more than 160 questions carrying their mark-scheme points.",
+      `The index covers ${subjects.length} subjects across IGCSE, O Level, AS and A Level, with ${allQuestions.length} questions carrying their mark-scheme points.`,
       "What is indexed is the structure of each series: which chapters appear, how many marks they carry, which command words dominate, and how often a question type returns. The archive pages are study reconstructions built to that structure — the official papers remain with their boards.",
     ],
   },

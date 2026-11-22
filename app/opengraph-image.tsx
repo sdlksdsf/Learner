@@ -1,4 +1,8 @@
 import { ImageResponse } from "next/og";
+import { allQuestions } from "@/lib/data";
+import { archiveEntries } from "@/lib/data/archive";
+import { subjects } from "@/lib/data/subjects";
+import { catalogue } from "@/lib/data/syllabus";
 
 export const runtime = "nodejs";
 export const alt = "Papertrail — past papers, read for patterns";
@@ -86,10 +90,10 @@ export default async function OpengraphImage() {
           }}
         >
           <div style={{ display: "flex", gap: 40 }}>
-            <span>184 questions</span>
-            <span>288 series</span>
-            <span>6 subjects</span>
-            <span>IGCSE · AS · A Level</span>
+            <span>{allQuestions.length} questions</span>
+            <span>{archiveEntries.length.toLocaleString()} papers</span>
+            <span>{catalogue.length} syllabuses</span>
+            <span>IGCSE · O Level · AS · A Level</span>
           </div>
         </div>
       </div>
