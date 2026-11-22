@@ -116,7 +116,7 @@ export function LibraryExplorer() {
             className={cn(
               "border px-3 py-1.5 text-[11px] font-medium transition-colors duration-150",
               subjectCode === "all"
-                ? "border-ink bg-ink text-paper-2"
+                ? "border-ink bg-ink text-paper"
                 : "border-line text-muted hover:border-line-strong hover:text-ink"
             )}
           >
@@ -131,7 +131,7 @@ export function LibraryExplorer() {
                 className={cn(
                   "border px-3 py-1.5 text-[11px] font-medium transition-colors duration-150",
                   subjectCode === code
-                    ? "border-ink bg-ink text-paper-2"
+                    ? "border-ink bg-ink text-paper"
                     : "border-line text-muted hover:border-line-strong hover:text-ink"
                 )}
               >
@@ -182,7 +182,7 @@ export function LibraryExplorer() {
             className={cn(
               "h-8 border px-2.5 text-[10.5px] transition-colors duration-150",
               onlyBanked
-                ? "border-ink bg-ink text-paper-2"
+                ? "border-ink bg-ink text-paper"
                 : "border-line text-muted hover:border-line-strong hover:text-ink"
             )}
             title="Only papers you can sit on screen"
@@ -322,7 +322,7 @@ function ArchiveCard({ entry, name }: { entry: ArchiveEntry; name: string }) {
         <p className="mono text-[9px] uppercase tracking-[0.1em] text-muted">
           {entry.marks} marks · {entry.minutes} min
         </p>
-        <span className="grid h-7 w-7 place-items-center border border-line text-muted transition-all duration-200 group-hover:border-ink group-hover:bg-ink group-hover:text-paper-2">
+        <span className="grid h-7 w-7 place-items-center border border-line text-muted transition-all duration-200 group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
           <ArrowUpRight size={13} />
         </span>
       </div>

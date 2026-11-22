@@ -6,8 +6,15 @@ import { buildArchivePaper, canBuildArchivePaper } from "@/lib/engine/generate";
 import { SyllabusEntry } from "@/components/library/syllabus-entry";
 import { getSubject } from "@/lib/data/subjects";
 
+/**
+ * Prerender the papers that can actually be sat. The syllabus-only entries are
+ * cheap pages rendered on demand, so pre-generating seven thousand of them
+ * would only slow the build and the deploy.
+ */
 export function generateStaticParams() {
-  return archiveEntries.map((entry) => ({ slug: entry.slug }));
+  return archiveEntries
+    .filter(canBuildArchivePaper)
+    .map((entry) => ({ slug: entry.slug }));
 }
 
 export async function generateMetadata({

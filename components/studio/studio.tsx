@@ -328,7 +328,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
                         className={cn(
                           "border px-3 py-1.5 text-[11px] font-medium transition-colors",
                           config.level === level
-                            ? "border-ink bg-ink text-paper-2"
+                            ? "border-ink bg-ink text-paper"
                             : "border-line text-muted hover:border-line-strong hover:text-ink"
                         )}
                       >
@@ -352,7 +352,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
                         className={cn(
                           "border p-3 text-left transition-all duration-200",
                           active
-                            ? "border-ink bg-ink text-paper-2"
+                            ? "border-ink bg-ink text-paper"
                             : "border-line hover:border-line-strong hover:bg-paper-2"
                         )}
                       >
@@ -448,7 +448,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
                           className={cn(
                             "border px-3 py-2 text-left transition-all duration-200",
                             active
-                              ? "border-ink bg-ink text-paper-2"
+                              ? "border-ink bg-ink text-paper"
                               : "border-line hover:border-line-strong hover:bg-paper-2"
                           )}
                         >
@@ -965,7 +965,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
       </div>
 
       {toast && (
-        <div className="anim-rise fixed bottom-6 right-6 z-50 border border-line bg-ink px-4 py-3 text-[12px] text-paper-2 shadow-sheet">
+        <div className="anim-rise fixed bottom-6 right-6 z-50 border border-line bg-ink px-4 py-3 text-[12px] text-paper shadow-sheet">
           {toast}
         </div>
       )}

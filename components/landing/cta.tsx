@@ -4,7 +4,7 @@ import { ButtonLink } from "@/components/ui/button";
 export function ClosingCta() {
   return (
     <section className="container-x pb-4 pt-8">
-      <div className="relative overflow-hidden bg-ink px-7 py-14 text-paper-2 sm:px-12 sm:py-16 lg:px-16">
+      <div className="relative overflow-hidden bg-ink px-7 py-14 text-paper sm:px-12 sm:py-16 lg:px-16">
         <div
           className="pointer-events-none absolute inset-y-0 right-0 w-1/2 opacity-[0.14]"
           style={{
@@ -24,7 +24,7 @@ export function ClosingCta() {
 
         <div className="relative">
           <p className="eyebrow !text-invert-ink/65">Before the exam</p>
-          <h2 className="display mt-5 max-w-2xl text-[clamp(36px,5vw,64px)] text-paper-2">
+          <h2 className="display mt-5 max-w-2xl text-[clamp(36px,5vw,64px)] text-paper">
             Your next paper is already in the pattern.
           </h2>
           <div className="mt-9 flex flex-wrap gap-3">

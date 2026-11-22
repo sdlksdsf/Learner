@@ -26,6 +26,8 @@
   --color-invert: var(--invert);
   --color-invert-2: var(--invert-2);
   --color-invert-ink: var(--invert-ink);
+  --color-invert-ink-2: var(--invert-ink-2);
+  --color-invert-strong: var(--invert-strong);
   --color-hover: var(--hover);
   --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -71,7 +73,10 @@
 
   --invert: #14120d;
   --invert-2: #201d16;
+  /* Text drawn on an inverted block — the opposite end of --invert. */
   --invert-ink: #f6f2e7;
+  --invert-ink-2: #14120d;
+  --invert-strong: #0d0b07;
 
   --shadow-sheet-value: 0 1px 0 rgba(23, 21, 15, 0.05), 0 24px 60px -36px rgba(23, 21, 15, 0.42);
   --shadow-soft-value: 0 10px 30px -20px rgba(23, 21, 15, 0.35);
@@ -112,7 +117,11 @@
 
   --invert: #f6f2e7;
   --invert-2: #ffffff;
+  /* An inverted block stays a light surface in dark mode, so its own text
+     stays dark too — it is the one place that does not follow --ink. */
   --invert-ink: #14120d;
+  --invert-ink-2: #f6f2e7;
+  --invert-strong: #ffffff;
 
   --shadow-sheet-value: 0 1px 0 rgba(0, 0, 0, 0.4), 0 24px 60px -36px rgba(0, 0, 0, 0.85);
   --shadow-soft-value: 0 10px 30px -20px rgba(0, 0, 0, 0.8);
@@ -281,8 +290,10 @@
   }
 
   .btn-primary {
+    /* Paper-2 is the surface *behind* the button, not the label on it. In dark
+       mode the label has to be the page colour, or it goes pale-on-pale. */
     background: var(--color-ink);
-    color: var(--color-paper-2);
+    color: var(--color-paper);
   }
 
   .btn-primary:hover {

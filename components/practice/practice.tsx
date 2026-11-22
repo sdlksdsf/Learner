@@ -660,7 +660,7 @@ export function Practice({ paperId }: { paperId: string }) {
       )}
 
       {toast && (
-        <div className="anim-rise fixed bottom-6 right-6 z-50 border border-line bg-ink px-4 py-3 text-[12px] text-paper-2 shadow-sheet">
+        <div className="anim-rise fixed bottom-6 right-6 z-50 border border-line bg-ink px-4 py-3 text-[12px] text-paper shadow-sheet">
           {toast}
         </div>
       )}

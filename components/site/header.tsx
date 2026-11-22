@@ -81,7 +81,7 @@ export function SiteHeader() {
             <Bookmark size={14} strokeWidth={1.8} />
             <span className="hidden lg:inline">Saved</span>
             {savedCount > 0 && (
-              <span className="mono grid h-4 min-w-4 place-items-center rounded-full bg-ink px-1 text-[9px] text-paper-2">
+              <span className="mono grid h-4 min-w-4 place-items-center rounded-full bg-ink px-1 text-[9px] text-paper">
                 {savedCount}
               </span>
             )}

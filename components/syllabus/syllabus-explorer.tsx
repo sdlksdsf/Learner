@@ -52,7 +52,7 @@ export function SyllabusExplorer() {
               className={cn(
                 "mono border px-3 py-1.5 text-[10px] uppercase tracking-[0.12em] transition-colors",
                 level === l
-                  ? "border-ink bg-ink text-paper-2"
+                  ? "border-ink bg-ink text-paper"
                   : "border-line-strong text-muted hover:border-ink hover:text-ink"
               )}
             >
