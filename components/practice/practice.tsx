@@ -28,11 +28,13 @@ import {
   getAttempt,
   getPaper,
   isSaved,
+  recordHistory,
   saveAttempt,
   savePaper,
   toggleSaved,
   updateSavedScore,
 } from "@/lib/storage";
+import { ExaminerNote } from "@/components/practice/examiner-report";
 import { markAttempt } from "@/lib/engine/marker";
 import { Button } from "@/components/ui/button";
 import { cn, clamp, formatClock, formatDuration, topicName } from "@/lib/format";
@@ -261,6 +263,16 @@ export function Practice({ paperId }: { paperId: string }) {
     };
     saveAttempt(attempt);
     updateSavedScore(paper.id, r.score, r.total);
+    recordHistory({
+      at: Date.now(),
+      paperId: paper.id,
+      subjectId: paper.subjectId,
+      level: paper.level,
+      score: r.score,
+      total: r.total,
+      pct: r.pct,
+      grade: r.grade,
+    });
     window.setTimeout(() => {
       setMarking(false);
       setSubmitted(true);
@@ -855,6 +867,10 @@ function ResultsView({
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="mt-8">
+            <ExaminerNote paper={paper} result={result} />
           </div>
 
           <div className="mt-8 border-t border-line pt-5">

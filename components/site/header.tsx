@@ -12,8 +12,9 @@ import { cn } from "@/lib/format";
 const links = [
   { href: "/create", label: "Build", index: "01" },
   { href: "/library", label: "Archive", index: "02" },
-  { href: "/method", label: "Method", index: "03" },
-  { href: "/saved", label: "Saved", index: "04" },
+  { href: "/syllabus", label: "Syllabus", index: "03" },
+  { href: "/method", label: "Method", index: "04" },
+  { href: "/saved", label: "Saved", index: "05" },
 ];
 
 export function SiteHeader() {

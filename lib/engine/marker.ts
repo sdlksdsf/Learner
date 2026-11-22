@@ -10,6 +10,14 @@ import type {
 import { getSubject } from "@/lib/data/subjects";
 import { gradeFor } from "@/lib/engine/grade";
 import { clamp, pct } from "@/lib/format";
+import {
+  coverage,
+  isPlausibleAttempt,
+  looksLikeKeywordSalad,
+  namesFormulaQuantities,
+  numbersToDigits,
+  sameRootSet,
+} from "@/lib/engine/semantic";
 
 const SUPERSCRIPTS: Record<string, string> = {
   "⁻": "-",
@@ -27,15 +35,17 @@ const SUPERSCRIPTS: Record<string, string> = {
 };
 
 export const normalize = (input: string): string =>
-  input
-    .toLowerCase()
+  numbersToDigits(
+    input
+      .toLowerCase()
     .replace(/[−–—]/g, "-")
     .replace(/[’‘]/g, "'")
     .replace(/[“”]/g, '"')
     .replace(/[⁻⁺⁰¹²³⁴⁵⁶⁷⁸⁹]/g, (c) => SUPERSCRIPTS[c] ?? c)
     .replace(/[^\p{L}\p{N}\s+\-*/=().,%×÷^:'"°]/gu, " ")
     .replace(/\s+/g, " ")
-    .trim();
+    .trim()
+  );
 
 export const extractNumbers = (input: string): number[] => {
   const clean = input
@@ -242,6 +252,36 @@ const pointResult = (
     }
   }
 
+  // Algebra written in a different but equivalent form: the factorised product
+  // and the list of roots are the same answer, and either earns the marks.
+  if (awarded === 0 && sameRootSet(normalized, normalize(point.text))) {
+    awarded = point.marks;
+    matched.push("equivalent form of the answer");
+  }
+
+  // A scheme point written as a formula ("Uses Q = It") matched from prose that
+  // names the quantities rather than the symbols.
+  if (awarded === 0 && point.marks <= 2 && namesFormulaQuantities(normalized, point.text)) {
+    awarded = point.marks;
+    matched.push("names the quantities in the formula");
+  }
+
+  // Semantic coverage: synonyms, stems and number words, so a correct idea
+  // phrased differently is credited. Requires a plausible attempt at the
+  // question, which stops an unrelated answer earning marks by accident.
+  if (awarded === 0) {
+    const cov = coverage(normalized, point.text);
+    const threshold = point.marks >= 2 ? 0.55 : 0.5;
+    if (
+      cov.ratio >= threshold &&
+      cov.hits.length >= (point.marks >= 2 ? 2 : 1) &&
+      isPlausibleAttempt(normalized, part.prompt, point.text)
+    ) {
+      awarded = point.marks;
+      matched.push(...cov.hits.slice(0, 4));
+    }
+  }
+
   // Examiner-style evidence match: the candidate must show the ideas the
   // scheme names, not merely restate the model answer.
   if (awarded === 0) {
@@ -304,6 +344,34 @@ const confidenceFor = (part: Part, blank: boolean): PartResult["confidence"] => 
 export function markPart(part: Part, answer: string): PartResult {
   const normalized = normalize(answer ?? "");
   const blank = normalized.length < 1;
+
+  // A list of scheme terms with no sentence carrying them is not an answer.
+  // Scoped narrowly: it needs a keyword-heavy short string with no reasoning
+  // connective, so a one-word answer like "Acidic" is never caught.
+  const salad =
+    !blank &&
+    normalized.split(/\s+/).length >= 6 &&
+    looksLikeKeywordSalad(
+      normalized,
+      part.scheme.flatMap((p) => p.keywords ?? []),
+      part.scheme.map((p) => p.text).join(" ")
+    );
+
+  if (salad) {
+    return {
+      partId: part.id,
+      label: part.label,
+      prompt: part.prompt,
+      possible: part.marks,
+      awarded: 0,
+      points: part.scheme.map((p) => ({ text: p.text, marks: p.marks, awarded: 0, matched: [] })),
+      confidence: "medium",
+      blank: false,
+      comment:
+        "This is a list of terms rather than an answer. Write the reasoning that connects them.",
+    };
+  }
+
   const numbers = blank ? [] : extractNumbers(normalized);
   const numericPoints = part.scheme.filter((p) => p.numeric !== undefined);
   const finalPoint = numericPoints[numericPoints.length - 1];

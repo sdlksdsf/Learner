@@ -25,7 +25,7 @@ const sections = [
     n: "02",
     title: "Pattern extraction",
     body: [
-      "Every chapter gets a pattern score from four signals: how often it appeared across the last ten series, how recently it was seen, whether it is trending up or down, and how many marks it typically carries.",
+      "Every chapter gets a pattern score from four signals: how often it appeared across the indexed series, how recently it was seen, whether it is trending up or down, and how many marks it typically carries.",
       "The score is deliberately blunt. It is a prior, not a prophecy: it tells the assembler which chapters deserve marks before a single question is chosen.",
     ],
   },

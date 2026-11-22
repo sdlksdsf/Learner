@@ -5,7 +5,7 @@ import { archiveEntries } from "@/lib/data/archive";
 
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/create", "/library", "/method"].map((path) => ({
+  const staticRoutes = ["", "/create", "/library", "/syllabus", "/method"].map((path) => ({
     url: `${siteUrl()}${path}`,
     lastModified: new Date(),
     changeFrequency: (path === "/library" ? "daily" : "weekly") as

@@ -92,7 +92,7 @@ export function analyse(
   if (stats[0]) {
     const top = stats[0];
     notes.push(
-      `${top.name} is the strongest signal: it has appeared in ${top.frequency} of the last ten series and is ${trendLabel(top.trend)}.`
+      `${top.name} is the strongest signal: it has appeared in ${top.frequency} of the indexed series and is ${trendLabel(top.trend)}.`
     );
   }
   const due = stats.find((t) => t.frequency >= 7 && Number(t.lastSeen) <= 2023);

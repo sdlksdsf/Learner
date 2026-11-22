@@ -89,7 +89,7 @@ function Specimen() {
             <p className="mono text-[9px] uppercase tracking-[0.16em] text-muted">
               Topic frequency
             </p>
-            <p className="mono text-[9px] text-faint">10 series</p>
+            <p className="mono text-[9px] text-faint">26 years</p>
           </div>
           <div className="space-y-3">
             {bars.map((bar, i) => (
@@ -181,7 +181,7 @@ export function Hero() {
           </h1>
 
           <p className="anim-rise mt-6 max-w-[520px] text-[15px] leading-[1.7] text-muted" style={{ ["--delay" as string]: "120ms" }}>
-            Papertrail reads the last five years of exam papers, finds the questions
+            Papertrail reads a quarter-century of exam papers, finds the questions
             examiners keep returning to, and builds the paper you actually need
             — topical or full length, with a mark scheme and marking that
             behaves like an examiner.

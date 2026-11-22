@@ -1,17 +1,15 @@
 import type { ArchiveEntry, Level, Subject } from "@/lib/types";
 import { specsForLevel, subjects, syllabusFor, topicsForLevel } from "@/lib/data/subjects";
 
-const series = [
-  { year: 2025, session: "May/June", code: "mj" },
-  { year: 2025, session: "Oct/Nov", code: "on" },
-  { year: 2024, session: "May/June", code: "mj" },
-  { year: 2024, session: "Oct/Nov", code: "on" },
-  { year: 2023, session: "May/June", code: "mj" },
-  { year: 2023, session: "Oct/Nov", code: "on" },
-  { year: 2022, session: "May/June", code: "mj" },
-  { year: 2022, session: "Oct/Nov", code: "on" },
-  { year: 2021, session: "May/June", code: "mj" },
-];
+/**
+ * Sessions back to 2000. Cairo code: 06 = Oct/Nov (ON), 05 = May/June (MJ).
+ * June-only subjects (Pakistan Studies 0448, Islamiyat 0493) list June alone.
+ */
+const series: { year: number; session: string; code: string }[] = [];
+for (let year = 2025; year >= 2000; year--) {
+  series.push({ year, session: "Oct/Nov", code: "on" });
+  series.push({ year, session: "May/June", code: "mj" });
+}
 
 const levelSlug: Partial<Record<Level, string>> = {
   IGCSE: "igcse",
@@ -105,3 +103,11 @@ export const archiveYears = [...new Set(archiveEntries.map((e) => e.year))].sort
 export const archiveSubjects = subjects.filter((s) =>
   archiveEntries.some((e) => e.subjectId === s.id)
 );
+
+/** Human-readable span of the indexed sessions, derived so copy never drifts. */
+export const archiveSpan = (() => {
+  const years = archiveEntries.map((e) => e.year);
+  const min = Math.min(...years);
+  const max = Math.max(...years);
+  return { min, max, label: `${min} — ${max}`, count: max - min + 1 };
+})();

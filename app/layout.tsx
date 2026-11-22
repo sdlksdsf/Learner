@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s — Papertrail",
   },
   description:
-    "Papertrail reads five years of past papers, finds what examiners keep asking, and builds a topical or full-length paper with a mark scheme and examiner-style marking.",
+    "Papertrail reads past papers back to 2000, finds what examiners keep asking, and builds a topical or full-length paper with a mark scheme and examiner-style marking.",
   keywords: [
     "past papers",
     "topical past papers",

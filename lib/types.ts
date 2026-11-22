@@ -52,7 +52,7 @@ export interface Topic {
   id: string;
   name: string;
   code: string;
-  /** Appearances across the last ten series (0–10). */
+  /** Appearances across the indexed series (0–10). */
   frequency: number;
   lastSeen: string;
   trend: Trend;

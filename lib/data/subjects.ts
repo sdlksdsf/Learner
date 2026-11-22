@@ -1,4 +1,6 @@
 import type { GradeBand, Level, PaperSpec, Stage, Subject, Topic } from "@/lib/types";
+import { catalogue } from "@/lib/data/syllabus";
+import { topicsFromSyllabus } from "@/lib/data/syllabus-topics";
 
 const paperSpecs = (prefix: string): PaperSpec[] => [
   {
@@ -149,6 +151,15 @@ const econTopics: Topic[] = [
   t("trade", "International trade & development", "A2 §13–15", 8, "2024", "flat", 8, "Comparative advantage, protectionism and development."),
 ];
 
+/* --------------------- Pakistan Studies & Islamiyat ----------------------- */
+/* Chapter lists transcribed from the board's published syllabuses:
+   0448 (2026) and 0493 (2026-2027). */
+
+const pakStudiesEntry = catalogue.find((c) => c.code === "0448")!;
+const islamiyatEntry = catalogue.find((c) => c.code === "0493")!;
+const pakStudiesTopics = topicsFromSyllabus(pakStudiesEntry.topics ?? []);
+const islamiyatTopics = topicsFromSyllabus(islamiyatEntry.topics ?? []);
+
 /* --------------------------------- Subjects ------------------------------- */
 
 export const subjects: Subject[] = [
@@ -228,6 +239,32 @@ export const subjects: Subject[] = [
     description: "Choices, incentives and the numbers behind them.",
     topics: { IGCSE: [], AS: econTopics, A2: econTopics },
     specs: { AS: asSpecs, "A Level": alevelSpecs },
+    thresholds: { IGCSE: igcseThresholds, AS: asThresholds, "A Level": alevelThresholds },
+  },
+  {
+    id: "pakstudies",
+    name: "Pakistan Studies",
+    short: "Pak Studies",
+    accent: "#1F5C4A",
+    levels: ["IGCSE", "O Level"],
+    boards: ["CAIE"],
+    syllabus: { IGCSE: "0448", "O Level": "2059" },
+    description: "History, culture and environment, from 1857 to the present.",
+    topics: { IGCSE: pakStudiesTopics, AS: [], A2: [] },
+    specs: { IGCSE: igcseSpecs, "O Level": igcseSpecs },
+    thresholds: { IGCSE: igcseThresholds, AS: asThresholds, "A Level": alevelThresholds },
+  },
+  {
+    id: "islamiyat",
+    name: "Islamiyat",
+    short: "Islamiyat",
+    accent: "#5B4A7A",
+    levels: ["IGCSE", "O Level"],
+    boards: ["CAIE"],
+    syllabus: { IGCSE: "0493", "O Level": "2058" },
+    description: "Qur'an, Hadith, the Prophet's life and the first community.",
+    topics: { IGCSE: islamiyatTopics, AS: [], A2: [] },
+    specs: { IGCSE: igcseSpecs, "O Level": igcseSpecs },
     thresholds: { IGCSE: igcseThresholds, AS: asThresholds, "A Level": alevelThresholds },
   },
 ];

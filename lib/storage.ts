@@ -3,6 +3,7 @@ import type { Attempt, Paper } from "@/lib/types";
 const PAPERS_KEY = "papertrail:papers";
 const ATTEMPTS_KEY = "papertrail:attempts";
 const SAVED_KEY = "papertrail:saved";
+const HISTORY_KEY = "papertrail:history";
 
 export interface SavedRecord {
   paperId: string;
@@ -68,6 +69,30 @@ export const saveAttempt = (attempt: Attempt): void => {
 
 export const getAttempt = (paperId: string): Attempt | null =>
   loadAttempts()[paperId] ?? null;
+
+/**
+ * One line per completed paper. Attempts are keyed by paper id so re-taking a
+ * paper overwrites it; this log keeps every sitting, which is what makes
+ * "am I improving?" answerable.
+ */
+export interface HistoryEntry {
+  at: number;
+  paperId: string;
+  subjectId: string;
+  level: string;
+  score: number;
+  total: number;
+  pct: number;
+  grade: string;
+}
+
+export const loadHistory = (): HistoryEntry[] => read<HistoryEntry[]>(HISTORY_KEY, []);
+
+export const recordHistory = (entry: HistoryEntry): void => {
+  const next = [entry, ...loadHistory().filter((h) => !(h.paperId === entry.paperId && h.at === entry.at))];
+  write(HISTORY_KEY, next.slice(0, 200));
+  if (canStore()) window.dispatchEvent(new Event("pt:history"));
+};
 
 export const loadSaved = (): SavedRecord[] => read<SavedRecord[]>(SAVED_KEY, []);
 

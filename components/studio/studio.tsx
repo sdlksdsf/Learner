@@ -637,7 +637,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
                   What happens next
                 </p>
                 <ol className="mt-3 space-y-2 text-[10.5px] leading-relaxed text-muted">
-                  <li className="flex gap-2"><span className="mono text-accent">01</span> Frequency and recurrence are read across ten series.</li>
+                  <li className="flex gap-2"><span className="mono text-accent">01</span> Frequency and recurrence are read across the indexed series.</li>
                   <li className="flex gap-2"><span className="mono text-accent">02</span> A blueprint is drawn: marks per chapter, command mix, difficulty.</li>
                   <li className="flex gap-2"><span className="mono text-accent">03</span> Questions are assembled to the blueprint and marked against the scheme.</li>
                 </ol>
@@ -718,7 +718,7 @@ export function Studio({ initial }: { initial: { subject?: string; level?: strin
                   Topic frequency
                 </h2>
                 <span className="mono text-[9px] uppercase tracking-[0.12em] text-muted">
-                  last 10 series
+                  indexed series
                 </span>
               </div>
               <div className="mt-4 border-t border-line">

@@ -24,6 +24,7 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2.5 text-[13px]">
             <li><Link href="/create" className="link-underline">Build a paper</Link></li>
             <li><Link href="/library" className="link-underline">Paper archive</Link></li>
+            <li><Link href="/syllabus" className="link-underline">Syllabus index</Link></li>
             <li><Link href="/saved" className="link-underline">Saved papers</Link></li>
           </ul>
         </div>
