@@ -1,0 +1,393 @@
+import type { Question } from "@/lib/types";
+
+export const bioAdvanced: Question[] = [
+  /* --------------------------------- Cells ------------------------------- */
+  {
+    id: "ba-ce-1",
+    topicId: "cells",
+    stage: "AS",
+    difficulty: 1,
+    command: "State",
+    source: "9700/22/M/J/24 Q1",
+    parts: [
+      {
+        id: "ba-ce-1a",
+        label: "",
+        prompt: "State the functions of the rough endoplasmic reticulum and the Golgi apparatus.",
+        marks: 2,
+        type: "short",
+        answer: "Rough ER: transport and folding of proteins. Golgi: modifies, sorts and packages proteins for secretion.",
+        lines: 3,
+        scheme: [
+          { text: "States that rough ER synthesises/transports proteins", marks: 1, keywords: ["protein", "transport", "fold"] },
+          { text: "States that the Golgi modifies/packages/secretes proteins", marks: 1, keywords: ["modify", "package", "secret", "golgi"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ce-2",
+    topicId: "cells",
+    stage: "AS",
+    difficulty: 2,
+    command: "Explain",
+    source: "9700/22/O/N/23 Q2",
+    parts: [
+      {
+        id: "ba-ce-2a",
+        label: "",
+        prompt: "Describe the fluid mosaic model of membrane structure and explain why the membrane is described as fluid.",
+        marks: 3,
+        type: "structured",
+        answer: "A phospholipid bilayer with embedded proteins, cholesterol, glycoproteins and glycolipids. The phospholipids and proteins can move sideways, so the membrane is fluid.",
+        lines: 5,
+        scheme: [
+          { text: "States that the membrane is a phospholipid bilayer", marks: 1, keywords: ["phospholipid", "bilayer"] },
+          { text: "States that proteins are embedded in the bilayer", marks: 1, keywords: ["protein", "embedded", "intrinsic", "extrinsic"] },
+          { text: "States that the components can move / are not fixed", marks: 1, keywords: ["move", "fluid", "sideways", "mobile"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ce-3",
+    topicId: "cells",
+    stage: "A2",
+    difficulty: 3,
+    command: "Explain",
+    source: "9700/42/M/J/24 Q3",
+    parts: [
+      {
+        id: "ba-ce-3a",
+        label: "",
+        prompt: "Explain how memory B cells provide long-term immunity after a primary infection.",
+        marks: 3,
+        type: "structured",
+        answer: "Memory B cells remain in the body after the primary response. On re-infection they recognise the antigen rapidly, divide and differentiate into plasma cells that secrete large amounts of antibody quickly.",
+        lines: 4,
+        scheme: [
+          { text: "States that memory cells remain in the body after infection", marks: 1, keywords: ["remain", "persist", "memory cells"] },
+          { text: "States that they recognise the same antigen quickly", marks: 1, keywords: ["recognise", "antigen", "rapid"] },
+          { text: "States that they divide and differentiate into plasma cells / secrete antibody", marks: 1, keywords: ["divide", "plasma", "antibody", "differentiate"] },
+        ],
+      },
+    ],
+  },
+
+  /* ------------------------------ Gas exchange --------------------------- */
+  {
+    id: "ba-ga-1",
+    topicId: "gas",
+    stage: "AS",
+    difficulty: 2,
+    command: "Explain",
+    source: "9700/22/M/J/23 Q4",
+    parts: [
+      {
+        id: "ba-ga-1a",
+        label: "",
+        prompt: "Explain how the alveoli are adapted for efficient gas exchange.",
+        marks: 3,
+        type: "structured",
+        answer: "They have a large surface area, walls one cell thick for a short diffusion distance, and a rich capillary network that maintains a steep concentration gradient.",
+        lines: 4,
+        scheme: [
+          { text: "States a large surface area", marks: 1, keywords: ["large surface area", "surface area", "many alveoli"] },
+          { text: "States that the walls are one cell thick / short diffusion distance", marks: 1, keywords: ["one cell", "thin", "diffusion distance"] },
+          { text: "States a good blood supply / steep concentration gradient", marks: 1, keywords: ["capillary", "blood supply", "gradient", "ventilation"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ga-2",
+    topicId: "gas",
+    stage: "AS",
+    difficulty: 2,
+    command: "Explain",
+    source: "9700/22/O/N/23 Q5",
+    parts: [
+      {
+        id: "ba-ga-2a",
+        label: "",
+        prompt: "Explain how oxygen is transported in the blood.",
+        marks: 3,
+        type: "structured",
+        answer: "Oxygen binds to haemoglobin in red blood cells to form oxyhaemoglobin. It is carried to respiring tissues where the partial pressure of oxygen is lower, so oxygen dissociates and diffuses into cells.",
+        lines: 4,
+        scheme: [
+          { text: "States that oxygen binds to haemoglobin", marks: 1, keywords: ["haemoglobin", "hemoglobin", "oxyhaemoglobin"] },
+          { text: "States that oxygen is carried in red blood cells", marks: 1, keywords: ["red blood cell", "erythrocyte", "blood"] },
+          { text: "States that oxygen dissociates / is released at respiring tissues", marks: 1, keywords: ["dissociate", "release", "tissues", "partial pressure"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ga-3",
+    topicId: "gas",
+    stage: "AS",
+    difficulty: 3,
+    command: "Explain",
+    source: "9700/42/M/J/23 Q6",
+    parts: [
+      {
+        id: "ba-ga-3a",
+        label: "",
+        prompt: "Explain how the structure of the heart produces a unidirectional flow of blood.",
+        marks: 3,
+        type: "structured",
+        answer: "The atria contract before the ventricles, and the valves open and close in response to pressure changes. The semilunar valves prevent backflow from the arteries, and the atrioventricular valves prevent backflow from the ventricles to the atria.",
+        lines: 5,
+        scheme: [
+          { text: "States that the atria contract before the ventricles", marks: 1, keywords: ["atria", "before", "ventricles", "sequence"] },
+          { text: "States that valves open and close due to pressure changes", marks: 1, keywords: ["valve", "pressure", "open", "close"] },
+          { text: "States that valves prevent backflow", marks: 1, keywords: ["backflow", "prevent", "unidirectional", "one way"] },
+        ],
+      },
+    ],
+  },
+
+  /* ------------------------------- Genetics ------------------------------ */
+  {
+    id: "ba-ge-1",
+    topicId: "genetics",
+    stage: "AS",
+    difficulty: 2,
+    command: "Explain",
+    source: "9700/22/M/J/24 Q7",
+    parts: [
+      {
+        id: "ba-ge-1a",
+        label: "",
+        prompt: "Explain how a change in the base sequence of DNA can alter the structure of a protein.",
+        marks: 3,
+        type: "structured",
+        answer: "The base sequence determines the codons in mRNA during transcription. A change in the sequence can alter one amino acid, which changes the primary structure. This can change the tertiary structure and therefore the function of the protein.",
+        lines: 5,
+        scheme: [
+          { text: "States that the base sequence is transcribed into mRNA codons", marks: 1, keywords: ["transcription", "mrna", "codon"] },
+          { text: "States that a change can alter an amino acid / primary structure", marks: 1, keywords: ["amino acid", "primary structure", "polypeptide"] },
+          { text: "States that this can change the tertiary structure / function", marks: 1, keywords: ["tertiary", "shape", "function", "fold"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ge-2",
+    topicId: "genetics",
+    stage: "AS",
+    difficulty: 3,
+    command: "Calculate",
+    source: "9700/42/O/N/23 Q8",
+    parts: [
+      {
+        id: "ba-ge-2a",
+        label: "",
+        prompt: "In a dihybrid cross, both parents are heterozygous for two unlinked genes (AaBb × AaBb). State the expected phenotypic ratio of the offspring.",
+        marks: 2,
+        type: "short",
+        answer: "9 : 3 : 3 : 1",
+        lines: 2,
+        scheme: [
+          { text: "States the 9 : 3 : 3 : 1 ratio", marks: 2, accept: ["9 : 3 : 3 : 1", "9:3:3:1"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ge-3",
+    topicId: "genetics",
+    stage: "A2",
+    difficulty: 3,
+    command: "Explain",
+    source: "9700/42/M/J/24 Q9",
+    parts: [
+      {
+        id: "ba-ge-3a",
+        label: "",
+        prompt: "Explain, using the theory of natural selection, how a population of bacteria can become resistant to an antibiotic.",
+        marks: 3,
+        type: "structured",
+        answer: "A random mutation may give a bacterium a resistant allele. When the antibiotic is applied, the resistant bacteria survive and reproduce, passing on the allele. Over time the frequency of the resistance allele increases.",
+        lines: 5,
+        scheme: [
+          { text: "States that a random mutation produces resistance", marks: 1, keywords: ["mutation", "random", "resistant allele"] },
+          { text: "States that resistant bacteria survive while non-resistant die", marks: 1, keywords: ["survive", "selection pressure", "die", "kill"] },
+          { text: "States that the allele is passed on / increases in frequency", marks: 1, keywords: ["pass on", "reproduce", "frequency", "increase"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ge-4",
+    topicId: "genetics",
+    stage: "A2",
+    difficulty: 3,
+    command: "Calculate",
+    source: "9700/42/O/N/23 Q10",
+    parts: [
+      {
+        id: "ba-ge-4a",
+        label: "",
+        prompt: "In a population, the frequency of the recessive allele a is 0.2. Use the Hardy–Weinberg equation to calculate the frequency of the heterozygous genotype Aa.",
+        marks: 3,
+        type: "calculation",
+        answer: "2pq = 0.32",
+        lines: 3,
+        scheme: [
+          { text: "Uses p + q = 1 to obtain p = 0.8", marks: 1, numeric: 0.8, tol: 0.01 },
+          { text: "Uses 2pq", marks: 1, keywords: ["2pq", "2 × 0.8 × 0.2", "heterozygous"] },
+          { text: "Obtains 0.32", marks: 1, numeric: 0.32, tol: 0.005 },
+        ],
+      },
+    ],
+  },
+
+  /* --------------------------- Homeostasis & coordination ---------------- */
+  {
+    id: "ba-ho-1",
+    topicId: "homeo",
+    stage: "AS",
+    difficulty: 2,
+    command: "Explain",
+    source: "9700/22/M/J/24 Q11",
+    parts: [
+      {
+        id: "ba-ho-1a",
+        label: "",
+        prompt: "Explain the role of negative feedback in the control of body temperature.",
+        marks: 3,
+        type: "structured",
+        answer: "Thermoreceptors detect a change in temperature. If the body is too hot, the hypothalamus triggers responses such as vasodilation and sweating. These bring the temperature back towards the set point, so the response is reduced.",
+        lines: 5,
+        scheme: [
+          { text: "States that thermoreceptors detect the change", marks: 1, keywords: ["thermoreceptor", "detect", "hypothalamus"] },
+          { text: "States a corrective response such as vasodilation or sweating", marks: 1, keywords: ["vasodilation", "sweat", "vasoconstriction", "shiver"] },
+          { text: "States that the response brings the temperature back to the set point", marks: 1, keywords: ["set point", "back", "reduce", "return"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ho-2",
+    topicId: "homeo",
+    stage: "AS",
+    difficulty: 3,
+    command: "Explain",
+    source: "9700/42/O/N/23 Q12",
+    parts: [
+      {
+        id: "ba-ho-2a",
+        label: "",
+        prompt: "Explain how a nerve impulse is transmitted across a cholinergic synapse.",
+        marks: 3,
+        type: "structured",
+        answer: "The action potential reaches the presynaptic membrane and calcium ions enter. Vesicles fuse with the membrane and release acetylcholine into the synaptic cleft. The transmitter binds to receptors on the postsynaptic membrane, causing sodium ions to enter and depolarising the membrane.",
+        lines: 5,
+        scheme: [
+          { text: "States that calcium ions enter the presynaptic neurone", marks: 1, keywords: ["calcium", "ca²⁺", "ca2+"] },
+          { text: "States that vesicles release acetylcholine into the cleft", marks: 1, keywords: ["acetylcholine", "vesicle", "cleft", "neurotransmitter"] },
+          { text: "States that the transmitter binds to receptors and causes depolarisation", marks: 1, keywords: ["receptor", "bind", "depolaris", "sodium"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ho-3",
+    topicId: "homeo",
+    stage: "A2",
+    difficulty: 3,
+    command: "Explain",
+    source: "9700/42/M/J/23 Q13",
+    parts: [
+      {
+        id: "ba-ho-3a",
+        label: "",
+        prompt: "Explain how insulin and glucagon interact to control blood glucose concentration.",
+        marks: 3,
+        type: "structured",
+        answer: "When blood glucose rises, beta cells secrete insulin, which increases glucose uptake and glycogen synthesis. When it falls, alpha cells secrete glucagon, which stimulates glycogen breakdown and gluconeogenesis. The two hormones act antagonistically in a negative feedback loop.",
+        lines: 5,
+        scheme: [
+          { text: "States that insulin lowers blood glucose", marks: 1, keywords: ["insulin", "lower", "uptake", "glycogen"] },
+          { text: "States that glucagon raises blood glucose", marks: 1, keywords: ["glucagon", "raise", "glycogen", "gluconeogenesis"] },
+          { text: "States that they act antagonistically / in negative feedback", marks: 1, keywords: ["antagonist", "negative feedback", "opposite"] },
+        ],
+      },
+    ],
+  },
+
+  /* ------------------------------ Ecology -------------------------------- */
+  {
+    id: "ba-ec-1",
+    topicId: "eco",
+    stage: "AS",
+    difficulty: 2,
+    command: "Explain",
+    source: "9700/22/M/J/24 Q14",
+    parts: [
+      {
+        id: "ba-ec-1a",
+        label: "",
+        prompt: "Explain why food chains rarely have more than five trophic levels.",
+        marks: 2,
+        type: "structured",
+        answer: "Energy is lost at each trophic level through respiration, heat and waste, so only a small proportion passes to the next level. Eventually there is not enough energy to support another population.",
+        lines: 3,
+        scheme: [
+          { text: "States that energy is lost at each trophic level", marks: 1, keywords: ["energy lost", "respiration", "heat"] },
+          { text: "States that too little energy remains to support another level", marks: 1, keywords: ["not enough", "little energy", "insufficient"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ec-2",
+    topicId: "eco",
+    stage: "AS",
+    difficulty: 2,
+    command: "Explain",
+    source: "9700/42/O/N/23 Q14",
+    parts: [
+      {
+        id: "ba-ec-2a",
+        label: "",
+        prompt: "Explain the lag and exponential phases of a population growth curve.",
+        marks: 3,
+        type: "structured",
+        answer: "In the lag phase the population is small and individuals are adapting, so growth is slow. In the exponential phase resources are plentiful and the birth rate greatly exceeds the death rate, so the population doubles rapidly.",
+        lines: 4,
+        scheme: [
+          { text: "Explains the lag phase as slow growth due to small numbers / adaptation", marks: 1, keywords: ["lag", "small", "adapt", "few"] },
+          { text: "States that resources are plentiful in the exponential phase", marks: 1, keywords: ["resources", "plentiful", "no limiting"] },
+          { text: "States that birth rate exceeds death rate / population doubles", marks: 1, keywords: ["birth rate", "death rate", "doubles", "rapid"] },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ba-ec-3",
+    topicId: "eco",
+    stage: "A2",
+    difficulty: 3,
+    command: "Explain",
+    source: "9700/42/M/J/24 Q15",
+    parts: [
+      {
+        id: "ba-ec-3a",
+        label: "",
+        prompt: "Explain what is meant by succession and describe how a pioneer community changes the environment.",
+        marks: 3,
+        type: "structured",
+        answer: "Succession is the change in the composition of a community over time. Pioneer species colonise bare ground, change the abiotic conditions and create soil, allowing other species to colonise and eventually replace them.",
+        lines: 4,
+        scheme: [
+          { text: "Defines succession as a change in community over time", marks: 1, keywords: ["succession", "change", "over time", "community"] },
+          { text: "States that pioneers colonise bare ground", marks: 1, keywords: ["pioneer", "colonise", "bare"] },
+          { text: "States that pioneers change the environment / create soil", marks: 1, keywords: ["change", "soil", "conditions", "abiotic"] },
+        ],
+      },
+    ],
+  },
+];
