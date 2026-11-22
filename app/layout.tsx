@@ -4,9 +4,10 @@ import "@fontsource-variable/fraunces/opsz-italic.css";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://papertrail.study"),
+  metadataBase: new URL(siteUrl()),
   title: {
     default: "Papertrail — Past papers, read for patterns",
     template: "%s — Papertrail",
@@ -39,6 +40,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  alternates: {
+    canonical: "/",
+  },
+  formatDetection: { telephone: false, address: false, email: false },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
