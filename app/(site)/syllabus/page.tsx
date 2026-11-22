@@ -19,9 +19,10 @@ export default function SyllabusPage() {
       <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-muted">
         {catalogue.length} Cambridge subjects across IGCSE, O Level and AS &amp; A Level, each with
         the syllabus code from the board&rsquo;s own subject list. {buildableCount} have a question
-        bank attached and can build a paper today; {verifiedCount} of those also carry a chapter
-        list transcribed from the published syllabus. The rest are listed so the catalogue is
-        honest about what exists rather than silently omitting it.
+        bank attached and can build a paper today, and {verifiedCount} carry a chapter list
+        transcribed word-for-word from the published syllabus. The rest are listed with their
+        code and group so the catalogue is honest about what exists rather than silently
+        omitting it.
       </p>
 
       <div className="mt-8 flex flex-wrap gap-3">

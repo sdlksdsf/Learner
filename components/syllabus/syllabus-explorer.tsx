@@ -95,7 +95,7 @@ export function SyllabusExplorer() {
         {rows.filter(
           (r) => (r.topics?.length ?? 0) > 0 || (bankedChapters.get(r.code) ?? 0) > 0
         ).length}{" "}
-        with chapter lists
+        with chapters available
       </p>
 
       <div className="mt-4 border-t border-line">
